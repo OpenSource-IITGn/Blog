@@ -18,6 +18,7 @@
         padding: 2px 5px;
         margin: 0 5px;
         border-radius: 4px;
+        font-weight: 500;
     }
 
     .image-text {
@@ -37,6 +38,10 @@
             z-index: 10;
             color: white;
             font-weight: 300;
+        }
+
+        .image-date {
+            color: $text-light
         }
     }
 }

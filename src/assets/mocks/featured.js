@@ -25,13 +25,13 @@ export default [
     image: "3.jpg",
     date: dayjs().format("MMMM DD, YYYY"),
   },
-  // {
-  //   title: "Vivamus in felis eu sapien cursus vestibulum.",
-  //   categories: "ac nulla sed vel enim",
-  //   link: "#",
-  //   image: "5.jpg",
-  //   date: dayjs().format("MMMM DD, YYYY"),
-  // },
+  {
+    title: "Vivamus in felis eu sapien cursus vestibulum.",
+    categories: "ac nulla sed vel enim",
+    link: "#",
+    image: "5.jpg",
+    date: dayjs().format("MMMM DD, YYYY"),
+  },
   // {
   //   title: "Phasellus in felis.",
   //   categories: "consequat morbi a ipsum",
