@@ -1,0 +1,23 @@
+.tags-container {
+    float: left;
+    width: 100%;
+    z-index: 10;
+    color: white;
+    font-weight: 300;
+
+    .tag {
+        background-color: #fff;
+        padding: 2px 7px;
+        margin: 0 5px;
+        border-radius: 4px;
+        font-weight: 500;
+        color: $text-color
+    }
+
+    .tag.dark {
+        background-color: rgb(243, 243, 243);
+        color: $dark-blue;
+        font-weight: 400;
+        padding: 2px 7px;
+    }
+}

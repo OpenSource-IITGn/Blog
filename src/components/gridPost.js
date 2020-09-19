@@ -1,4 +1,5 @@
 import React from "react";
+import TagsContainer from "./tagsContainer";
 
 function GridPost({ post, ceil }) {
   const windowWidth = window.innerWidth;
@@ -17,13 +18,7 @@ function GridPost({ post, ceil }) {
 
   return (
     <div className="grid-post overlay" style={styles} href={post.link}>
-      <div className="tags-container">
-        {postCategories.map((tag, index) => (
-          <span className="tag" key={index}>
-            {tag}
-          </span>
-        ))}
-      </div>
+      <TagsContainer postCategories={postCategories} />
       <div className="image-text">
         <h3 className="image-title">{post.title}</h3>
         <span className="image-date">{post.date}</span>

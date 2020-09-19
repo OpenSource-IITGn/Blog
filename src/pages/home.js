@@ -3,6 +3,7 @@ import PostsGrid from "../components/PostsGrid";
 import trending from "./../assets/mocks/trending";
 import featured from "./../assets/mocks/featured";
 import GridPost from "../components/gridPost";
+import PostsList from "../components/postsList";
 
 const trendingGridConfig = {
   1: {
@@ -27,26 +28,44 @@ const featuredGridConfig = {
 const mergeStyles = (posts, config) => {
   posts.forEach((post, index) => {
     post.style = config[index];
+    post.author = "Anup Aglawe";
+    post.description =
+      "Quis incididunt tempor mollit sunt incididunt non. Commodo i sunt consequat ullamco occaecat labore duis culpa occaecat pariatur consectetur qui cupidatat esse. Enim commodo sint adipisicing irure.";
   });
 };
 
 mergeStyles(trending, trendingGridConfig);
 mergeStyles(featured, featuredGridConfig);
 const lastFeatured = featured.pop();
+const allPosts = [...trending, ...featured, ...trending];
 
 function Home() {
   return (
-    <section className="container home">
-      <div className="row">
-        <h2>Layout 1</h2>
-        <section className="featured-posts">
-          <PostsGrid posts={featured} columns={2} ceil={true} />
-          <GridPost post={lastFeatured} ceil={true} />
-        </section>
-        <h2>Layout 2</h2>
-        <PostsGrid posts={trending} columns={3} />
-      </div>
-    </section>
+    <main className="home">
+      <section className="container">
+        <div className="row">
+          <h2 className="section-heading">Trending Posts</h2>
+          <section className="featured-posts">
+            <PostsGrid posts={featured} columns={2} ceil={true} />
+            <GridPost post={lastFeatured} ceil={true} />
+          </section>
+        </div>
+      </section>
+
+      <section className="container">
+        <div className="row">
+          <h2 className="section-heading">Recent Posts</h2>
+          <PostsList posts={allPosts} />
+        </div>
+      </section>
+
+      <section className="container">
+        <div className="row">
+          <h2 className="section-heading">Recommended Posts</h2>
+          <PostsGrid posts={trending} columns={3} />
+        </div>
+      </section>
+    </main>
   );
 }
 

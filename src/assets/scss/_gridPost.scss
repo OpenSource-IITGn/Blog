@@ -13,13 +13,7 @@
     flex-direction: column;
     align-items: flex-start;
 
-    .tag {
-        background-color: #fff;
-        padding: 2px 5px;
-        margin: 0 5px;
-        border-radius: 4px;
-        font-weight: 500;
-    }
+
 
     .image-text {
 
@@ -30,8 +24,7 @@
         padding: 20px;
 
         .image-title,
-        .image-date,
-        .tags-container {
+        .image-date {
             float: left;
             width: 100%;
             z-index: 10;

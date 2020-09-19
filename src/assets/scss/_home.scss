@@ -7,6 +7,13 @@
     .featured-posts {
         display: flex;
     }
+
+    .section-heading {
+        text-transform: uppercase;
+        letter-spacing: 1mm;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media screen and (max-width : 900px) {
