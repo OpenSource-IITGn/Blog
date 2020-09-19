@@ -2,3 +2,11 @@
     display: grid;
     gap: 30px;
 }
+
+@media screen and (max-width : 900px) {
+    .posts-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+}

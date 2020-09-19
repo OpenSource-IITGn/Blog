@@ -74,8 +74,7 @@ export default [
     date: dayjs().format("MMMM DD, YYYY"),
   },
   {
-    title:
-      "Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci.",
+    title: "Nam congue, risus semper porta volutpat, qua.",
     categories: "nascetur ridiculus mus etiam",
     link: "#",
     image: "7.jpg",

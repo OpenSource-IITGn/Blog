@@ -38,12 +38,12 @@ function Home() {
   return (
     <section className="container home">
       <div className="row">
-        <h2>Featured Posts</h2>
+        <h2>Layout 1</h2>
         <section className="featured-posts">
-          <PostsGrid posts={featured} columns={2} />
-          <GridPost post={lastFeatured} />
+          <PostsGrid posts={featured} columns={2} ceil={true} />
+          <GridPost post={lastFeatured} ceil={true} />
         </section>
-        <h2>Trending Posts</h2>
+        <h2>Layout 2</h2>
         <PostsGrid posts={trending} columns={3} />
       </div>
     </section>

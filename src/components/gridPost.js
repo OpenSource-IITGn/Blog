@@ -1,12 +1,18 @@
 import React from "react";
 
-function GridPost({ post }) {
-  console.log(post);
+function GridPost({ post, ceil }) {
+  const windowWidth = window.innerWidth;
   const bgStyle = {
     backgroundImage: `url("${require(`../assets/images/${post.image}`)}" )`,
   };
 
-  const styles = { ...bgStyle, ...post.style };
+  const postStyles =
+    windowWidth > 900 ? { ...bgStyle, ...post.style } : { ...bgStyle };
+
+  const styles = ceil
+    ? { ...postStyles, justifyContent: "space-between" }
+    : { ...postStyles };
+
   const postCategories = post.categories.split(" ");
 
   return (
@@ -19,7 +25,7 @@ function GridPost({ post }) {
         ))}
       </div>
       <div className="image-text">
-        <h2 className="image-title">{post.title}</h2>
+        <h3 className="image-title">{post.title}</h3>
         <span className="image-date">{post.date}</span>
       </div>
     </div>

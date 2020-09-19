@@ -1,7 +1,7 @@
 import React from "react";
 import GridPost from "./gridPost";
 
-function PostsGrid({ posts, columns, tagsPosition }) {
+function PostsGrid({ posts, columns, ceil }) {
   return (
     <section
       className="posts-grid"
@@ -10,7 +10,7 @@ function PostsGrid({ posts, columns, tagsPosition }) {
       }}
     >
       {posts.map((post, index) => (
-        <GridPost {...{ post, index, tagsPosition, key: index }} />
+        <GridPost {...{ post, index, ceil, key: index }} />
       ))}
     </section>
   );

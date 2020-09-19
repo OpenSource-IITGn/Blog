@@ -23,7 +23,6 @@
 
     .image-text {
 
-        height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -41,7 +40,18 @@
         }
 
         .image-date {
-            color: $text-light
+            color: $text-light;
+            font-size: 18px;
+
         }
+    }
+}
+
+
+@media screen and (max-width : 900px) {
+    .grid-post {
+        width: 100%;
+        margin: 10px 0;
+        // height: 300px;
     }
 }
