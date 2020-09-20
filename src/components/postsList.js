@@ -15,10 +15,12 @@ function PostsList({ posts }) {
 
   return (
     <section className="posts-list">
-      <div className="posts-container">
-        {currentPagePosts.map((post, index) => (
-          <PostItem post={post} key={index} />
-        ))}
+      <div className="flex-container">
+        <div className="posts-container">
+          {currentPagePosts.map((post, index) => (
+            <PostItem post={post} key={index} />
+          ))}
+        </div>
       </div>
       <Pagination
         simple

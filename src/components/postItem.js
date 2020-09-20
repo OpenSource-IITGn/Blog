@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Divider, Row } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import TagsContainer from "./tagsContainer";
@@ -8,7 +8,7 @@ function PostItem({ post }) {
   return (
     <div className="post-item">
       <Row>
-        <Col span={12}>
+        <Col span={17}>
           <div className="post-content">
             <h3 className="post-title">{post.title}</h3>
             <TagsContainer postCategories={postCategories} theme="dark" />
@@ -18,7 +18,7 @@ function PostItem({ post }) {
             <div className="more-button">Read more ...</div>
           </div>
         </Col>
-        <Col span={6}>
+        <Col span={7}>
           <figure>
             <Link to={post.link}>
               <img
@@ -30,6 +30,7 @@ function PostItem({ post }) {
           </figure>
         </Col>
       </Row>
+      <Divider />
     </div>
   );
 }

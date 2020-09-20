@@ -1,12 +1,16 @@
 .post-item {
-    margin: 2rem 0rem;
-    padding: 1rem 0rem;
+    margin: 0.5rem 0rem;
+    padding: 0.5rem 0rem;
+
+    figure {
+        a {
+            display: flex;
+        }
+    }
 
     .post-item-image {
-        // max-width: 220px;
         border-radius: 12px;
         margin-left: 12px;
-        // max-height: 100%;
         width: 220px;
         height: 220px;
         overflow: hidden;

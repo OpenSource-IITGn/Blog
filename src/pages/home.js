@@ -4,6 +4,8 @@ import trending from "./../assets/mocks/trending";
 import featured from "./../assets/mocks/featured";
 import GridPost from "../components/gridPost";
 import PostsList from "../components/postsList";
+import { Col, Row } from "antd";
+import SideBar from "../components/sideBar";
 
 const trendingGridConfig = {
   1: {
@@ -54,8 +56,15 @@ function Home() {
 
       <section className="container">
         <div className="row">
-          <h2 className="section-heading">Recent Posts</h2>
-          <PostsList posts={allPosts} />
+          <Row>
+            <Col span={17}>
+              <h2 className="section-heading">Recent Posts</h2>
+              <PostsList posts={allPosts} />
+            </Col>
+            <Col span={6} offset={1}>
+              <SideBar />
+            </Col>
+          </Row>
         </div>
       </section>
 
