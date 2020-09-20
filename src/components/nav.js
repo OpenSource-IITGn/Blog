@@ -42,8 +42,9 @@ function Nav() {
             </Avatar>
           </div>
         </div>
-
-        <i onClick={() => setshowMenu(!showMenu)} className="gg-menu-right"></i>
+        <div className="toggle-btn" onClick={() => setshowMenu(!showMenu)}>
+          <i className="gg-menu-right"></i>
+        </div>
       </div>
     </div>
   );

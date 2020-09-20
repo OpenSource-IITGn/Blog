@@ -5,6 +5,9 @@
     justify-content: space-between;
     align-items: center;
     color: $text-color;
+    position: fixed;
+    z-index: 100;
+    top: 0;
 
     .nav-brand {
         font-size: 24px;
@@ -17,6 +20,7 @@
         margin-right: 2rem;
         align-items: center;
         font-size: 16px;
+        z-index: 11;
 
         .nav-content-items {
             display: flex;
@@ -24,6 +28,10 @@
 
         .gg-menu-right {
             display: none;
+        }
+
+        .toggle-btn {
+            padding: 5px;
         }
     }
 
@@ -54,11 +62,12 @@
 
 @media screen and (max-width: 800px) {
     .navbar {
+
         .nav-content {
             .nav-content-items {
                 width: 250px;
                 height: calc(100% - 70px);
-                position: absolute;
+                position: fixed;
                 top: 70px;
                 left: -250px;
                 transition: 300ms ease left;
