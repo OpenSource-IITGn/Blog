@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "GraphQL backend for IITGn BLog",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anup Aglawe",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-koa": "^2.17.0",
+    "dayjs": "^1.8.36",
+    "graphql-tools": "^6.2.3",
+    "koa": "^2.13.0",
+    "koa-router": "^9.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "nodemon": "^2.0.4"
+  }
+}

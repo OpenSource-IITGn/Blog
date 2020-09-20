@@ -57,11 +57,11 @@ function Home() {
       <section className="container">
         <div className="row">
           <Row>
-            <Col span={17}>
+            <Col lg={17} md={24}>
               <h2 className="section-heading">Recent Posts</h2>
               <PostsList posts={allPosts} />
             </Col>
-            <Col span={6} offset={1}>
+            <Col lg={6} offset={1} md={0}>
               <SideBar />
             </Col>
           </Row>
