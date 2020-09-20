@@ -2,18 +2,40 @@
     position: relative;
     border-radius: 5px;
     overflow: hidden;
-    background-size: cover;
-    background-position: center center;
     height: 100%;
     width: 100%;
     text-decoration: none;
     margin: 0 auto;
-    padding: 24px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    min-height: 200px;
 
+    .bg-blog-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        transition: all 500ms;
+    }
 
+    &:hover .bg-blog-image {
+        transform: scale(1.2);
+    }
+
+    .grid-post-container {
+        position: absolute;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        align-items: flex-start;
+    }
+
+    .tags-container {
+        // position: absolute;
+    }
 
     .image-text {
 
@@ -22,6 +44,7 @@
         flex-direction: column;
         box-sizing: border-box;
         padding: 20px;
+        // position: absolute;
 
         .image-title,
         .image-date {
