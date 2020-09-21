@@ -1,24 +1,27 @@
-import koa from "koa"; // koa@2
-import koaRouter from "koa-router";
-import { ApolloServer, graphiqlKoa } from "apollo-server-koa";
-import { makeExecutableSchema } from "graphql-tools";
+import koa from 'koa' // koa@2
+import koaRouter from 'koa-router'
+import { ApolloServer, graphiqlKoa } from 'apollo-server-koa'
+import { makeExecutableSchema } from 'graphql-tools'
 
-import schema from "./schema";
+import schema from './schema'
 
-console.log(schema);
+// models
+import User from './db/models/user.model'
+console.log(typeof User.tableName)
+
 const server = new ApolloServer({
   schema: makeExecutableSchema({
     typeDefs: schema.typeDefs,
     resolvers: schema.resolvers,
   }),
-});
+})
 
-const app = new koa();
-const router = new koaRouter();
+const app = new koa()
+const router = new koaRouter()
 
-server.applyMiddleware({ app });
+server.applyMiddleware({ app })
 
-const PORT = 8080;
+const PORT = 8080
 
 // router.get(
 //   "/graphiql",
@@ -28,9 +31,9 @@ const PORT = 8080;
 // );
 
 app.use(async (ctx) => {
-  ctx.body = "Hello World";
-});
+  ctx.body = 'Hello World'
+})
 
 app.listen({ port: PORT }, () => {
-  console.log(`Server ready at http://localhost:${PORT + server.graphqlPath}`);
-});
+  console.log(`Server ready at http://localhost:${PORT + server.graphqlPath}`)
+})
