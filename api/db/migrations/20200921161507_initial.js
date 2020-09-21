@@ -8,7 +8,7 @@ exports.up = async (knex) => {
   await knex.schema
     .createTable(TableNames.users, (table) => {
       table.increments().notNullable()
-      table.integer('role_id').notNullable()
+      table.integer('role_id').notNullable().unsigned()
       table.string('email', 255).notNullable().unique().index('uemail')
       table.string('first_name', 100).notNullable()
       table.string('last_name', 100)
@@ -30,7 +30,7 @@ exports.up = async (knex) => {
     })
     .createTable(TableNames.posts, (table) => {
       table.increments().notNullable()
-      table.integer('author_id').notNullable().index('blog_author')
+      table.integer('author_id').notNullable().index('blog_author').unsigned()
       table.string('title', 300).notNullable()
       table.text('body').notNullable()
       table.string('keyword', 50).notNullable()
@@ -41,8 +41,8 @@ exports.up = async (knex) => {
     })
     .createTable(TableNames.comments, (table) => {
       table.increments().notNullable()
-      table.integer('post_id').notNullable().index()
-      table.integer('author_id').notNullable().index()
+      table.integer('post_id').notNullable().index().unsigned()
+      table.integer('author_id').notNullable().index().unsigned()
       table.string('body').notNullable()
     })
 }
