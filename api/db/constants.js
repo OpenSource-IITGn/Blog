@@ -1,10 +1,13 @@
 module.exports = {
   TableNames: {
-    users: 'users',
+    post_likes: 'post_likes',
+    role_permissions: 'role_permissions',
+    post_categories: 'post_categories',
+    permissions: 'permissions',
     roles: 'roles',
-    categories: 'categories',
     posts: 'posts',
     comments: 'comments',
-    permissions: 'permissions',
+    categories: 'categories',
+    users: 'users',
   },
 }
