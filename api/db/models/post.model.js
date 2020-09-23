@@ -15,7 +15,7 @@ class Post extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'posts.user_id',
+          from: 'posts.author_id',
           to: 'user.id',
         },
       },
