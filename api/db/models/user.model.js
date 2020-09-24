@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import argon2 from 'argon2'
 
 class User extends Model {
   static get tableName() {
@@ -45,6 +46,28 @@ class User extends Model {
         },
       },
     }
+  }
+
+  // CRUD Methods
+  async create(userData) {
+    userData.password = await argon2.hash(userData.password)
+    await User.query().insert(userData)
+  }
+
+  async read(partialUser) {
+    return User.query().where(partialUser)
+  }
+
+  async update(id, partialUser) {
+    await User.query().findById(id).patch(partialUser)
+  }
+
+  async delete(id) {
+    await User.query().deleteById(id)
+  }
+
+  comparePassword(password, hash) {
+    return argon2.verify(hash, password)
   }
 }
 

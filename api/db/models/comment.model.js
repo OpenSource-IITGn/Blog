@@ -28,6 +28,23 @@ class Comment extends Model {
       },
     }
   }
+
+  // CRUD Methods
+  async create(commentData) {
+    await Comment.query().insert(commentData)
+  }
+
+  async read(commentQuery) {
+    return Comment.query().where(commentQuery)
+  }
+
+  async update(id, commentData) {
+    await Comment.query().findById(id).patch(commentData)
+  }
+
+  async delete(id) {
+    await Comment.query().deleteById(id)
+  }
 }
 
 export default Comment

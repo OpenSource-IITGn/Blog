@@ -23,6 +23,23 @@ class Category extends Model {
       },
     }
   }
+    // CRUD Methods
+    async create(categoryData) {
+      await Category.query().insert(categoryData)
+    }
+  
+    async read(categoryQuery) {
+      return Category.query().where(categoryQuery)
+    }
+  
+    async update(id, categoryData) {
+      await Category.query().findById(id).patch(categoryData)
+    }
+  
+    async delete(id) {
+      await Category.query().deleteById(id)
+    }
+  
 }
 
 export default Category
