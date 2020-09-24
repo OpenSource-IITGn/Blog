@@ -4,10 +4,23 @@ import { ApolloServer, graphiqlKoa } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 
 import schema from './schema'
+import Knex from 'knex'
+import { Model } from 'objection'
+import knexConfig from './knexFile'
+import dotenv from 'dotenv'
 
-// models
-import User from './db/models/user.model'
-console.log(typeof User.tableName)
+dotenv.config()
+var environment = process.env.NODE_ENV || 'development'
+var knex = Knex(knexConfig[environment])
+
+knex.raw('select 1+1 as result').then(function () {
+  console.log('Succesfully Connected')
+})
+
+Model.knex(knex)
+
+const app = new koa()
+const router = new koaRouter()
 
 const server = new ApolloServer({
   schema: makeExecutableSchema({
@@ -15,9 +28,6 @@ const server = new ApolloServer({
     resolvers: schema.resolvers,
   }),
 })
-
-const app = new koa()
-const router = new koaRouter()
 
 server.applyMiddleware({ app })
 

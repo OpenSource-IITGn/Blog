@@ -1,0 +1,105 @@
+const argon2 = require('argon2')
+const TableNames = require('./../../constants').TableNames
+
+exports.seed = async (knex) => {
+  // Deletes ALL existing entries
+  await knex(TableNames.role_permissions).del()
+  await knex(TableNames.permissions).del()
+  await knex(TableNames.post_categories).del()
+  await knex(TableNames.post_likes).del()
+  await knex(TableNames.comments).del()
+  await knex(TableNames.categories).del()
+  await knex(TableNames.posts).del()
+  await knex(TableNames.users).del()
+  await knex(TableNames.roles).del()
+  // Inserts seed entries
+  const role = {
+    role: 'admin',
+  }
+
+  const permission1 = {
+    action: 'edit',
+  }
+
+  const permission2 = {
+    action: 'view',
+  }
+
+  const role_permission1 = {
+    role_id: 1,
+    permission_id: 1,
+  }
+
+  const role_permission2 = {
+    role_id: 1,
+    permission_id: 2,
+  }
+
+  const category1 = {
+    label: 'First',
+    description: 'First description',
+  }
+
+  const category2 = {
+    label: 'Second',
+    description: 'Second description',
+  }
+
+  const user1 = {
+    first_name: 'Anup',
+    last_name: 'Aglawe',
+    email: 'asd@asd.co',
+    password: await argon2.hash('password'),
+    role_id: 1,
+  }
+
+  const user2 = {
+    first_name: 'Anup2',
+    last_name: 'Aglawe',
+    email: 'asd2@asd.co',
+    password: await argon2.hash('password'),
+    role_id: 1,
+  }
+
+  const post1 = {
+    title: 'Title 1',
+    author_id: 1,
+    body:
+      'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
+    keyword: 'blog',
+  }
+  const post2 = {
+    title: 'Title 2',
+    author_id: 2,
+    body:
+      'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
+    keyword: 'blog',
+  }
+
+  const comment1 = { post_id: 1, author_id: 1, body: 'commrnt 1' }
+  const comment2 = { post_id: 1, author_id: 2, body: 'commrnt 2' }
+
+  const post_categories1 = { post_id: 1, category_id: 1 }
+  const post_categories2 = { post_id: 2, category_id: 2 }
+
+  const post_likes1 = { post_id: 1, user_id: 1 }
+  const post_likes2 = { post_id: 2, user_id: 2 }
+
+  await knex(TableNames.roles).insert(role)
+
+  await knex(TableNames.permissions).insert([permission1, permission2])
+
+  await knex(TableNames.categories).insert([category1, category2])
+
+  await knex(TableNames.users).insert([user1, user2])
+
+  await knex(TableNames.posts).insert([post1, post2])
+
+  await knex(TableNames.comments).insert([comment1, comment2])
+
+  await knex(TableNames.role_permissions).insert([role_permission1, role_permission2])
+
+  await knex(TableNames.post_categories).insert([post_categories1, post_categories2])
+
+  await knex(TableNames.post_likes).insert([post_likes1, post_likes2])
+}

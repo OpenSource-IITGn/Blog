@@ -4,24 +4,27 @@ class Post extends Model {
   static get tableName() {
     return 'posts'
   }
+  static get modelPaths() {
+    return [__dirname]
+  }
 
   static get relationMappings() {
-    const { User } = require('./user.model')
+    // const { User } = require('./user.model')
     const { Comment } = require('./comment.model')
-    const { Category } = require('./category.model')
+    // const { Category } = require('./category.model')
 
     return {
       author: {
         relation: Model.BelongsToOneRelation,
-        modelClass: User,
+        modelClass: __dirname + '/user.model',
         join: {
           from: 'posts.author_id',
-          to: 'user.id',
+          to: 'users.id',
         },
       },
       post_likes: {
         relation: Model.ManyToManyRelation,
-        modelClass: User,
+        modelClass: __dirname + '/user.model',
         join: {
           from: 'posts.id',
           through: {
@@ -41,7 +44,7 @@ class Post extends Model {
       },
       post_categories: {
         relation: Model.ManyToManyRelation,
-        modelClass: Category,
+        modelClass: __dirname + '/category.model',
         join: {
           from: 'posts.id',
           through: {

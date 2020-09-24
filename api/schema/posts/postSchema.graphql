@@ -1,15 +1,27 @@
 type Query {
-  trendingPosts: [Post]!
-  featuredPosts: [Post]!
+  getPostsByType(type: String): [Post]!
   recentPosts: [Post]!
+  featuredPosts: [Post]!
+  trendingPosts: [Post]!
+  getPostsByCategory(category_id: Int): [Post]!
 }
 
 type Post {
   id: Int
   title: String
-  date: String
-  categories: [String]
+  updated_at: String
+  created_at: String
+  categories: [String]!
+  likes: String
   author: String
   description: String
   image: String
+  comments: [Comment]!
+}
+
+type Comment {
+  id: Int
+  post_id: Int
+  author: String
+  Comment: String
 }

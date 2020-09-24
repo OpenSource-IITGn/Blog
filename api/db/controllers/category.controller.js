@@ -1,4 +1,4 @@
-import Category from '../../models/category.model'
+import Category from '../models/category.model'
 
 export const createCategory = async (req, res) => {
   const { label, description } = req.body
