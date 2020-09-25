@@ -10,7 +10,7 @@ class Post extends Model {
 
   static get relationMappings() {
     // const { User } = require('./user.model')
-    const { Comment } = require('./comment.model')
+    // const { Comment } = require('./comment.model')
     // const { Category } = require('./category.model')
 
     return {
@@ -36,7 +36,7 @@ class Post extends Model {
       },
       comments: {
         relation: Model.HasManyRelation,
-        modelClass: Comment,
+        modelClass: __dirname + '/comment.model',
         join: {
           from: 'posts.id',
           to: 'comments.post_id',

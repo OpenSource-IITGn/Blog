@@ -83,6 +83,7 @@ exports.seed = async (knex) => {
   const post_categories2 = { post_id: 2, category_id: 2 }
 
   const post_likes1 = { post_id: 1, user_id: 1 }
+  const post_likes3 = { post_id: 1, user_id: 2 }
   const post_likes2 = { post_id: 2, user_id: 2 }
 
   await knex(TableNames.roles).insert(role)
@@ -101,5 +102,5 @@ exports.seed = async (knex) => {
 
   await knex(TableNames.post_categories).insert([post_categories1, post_categories2])
 
-  await knex(TableNames.post_likes).insert([post_likes1, post_likes2])
+  await knex(TableNames.post_likes).insert([post_likes1, post_likes2, post_likes3])
 }
