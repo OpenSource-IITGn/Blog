@@ -1,5 +1,5 @@
 type Mutation {
-  signUp(email: String!, password: String!, userName: String!): QueryResponse!
+  signUp(email: String!, password: String!, first_name: String!, last_name: String): QueryResponse!
   signIn(email: String!, password: String!): SignInResponse!
   changePassword(password: String!): QueryResponse!
 }

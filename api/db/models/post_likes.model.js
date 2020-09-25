@@ -5,14 +5,11 @@ export class PostLike extends Model {
     return 'post_likes'
   }
 
-  static relationMappings = () => {
-    const { Post } = require('./post.model')
-    const { User } = require('./user.model')
-
+  static get relationMappings() {
     return {
       post: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Post,
+        modelClass: __dirname + './post.model',
         join: {
           from: 'post_likes.post_id',
           to: 'posts.id',
@@ -20,7 +17,8 @@ export class PostLike extends Model {
       },
       user: {
         relation: Model.BelongsToOneRelation,
-        modelClass: User,
+        modelClass: __dirname + './user.model',
+
         join: {
           from: 'post_likes.user_id',
           to: 'users.id',

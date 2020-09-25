@@ -47,12 +47,6 @@ class User extends Model {
     }
   }
 
-  // CRUD Methods
-  async create(userData) {
-    userData.password = await argon2.hash(userData.password)
-    await User.query().insert(userData)
-  }
-
   async read(partialUser) {
     return User.query().where(partialUser)
   }

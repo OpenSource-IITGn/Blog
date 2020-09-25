@@ -15,3 +15,35 @@ export const GRAPHQL = {
     message: error.message,
   }),
 }
+
+export const SMTP = {
+  HOST: 'smtp.example.com',
+  PASSWORD: 'PaSsWoRd',
+  PORT: '465',
+  USER: 'user@example.com',
+}
+
+// recovery: async (_: {}, { email }: IRecovery) => {
+//   const user = await User.findOne({ email }).exec();
+
+//   if (!user) {
+//     throw new Error('No user with that email');
+//   }
+
+//   const token = jsonwebtoken.sign({ userId: user.id }, JWT.SECRET, {
+//     expiresIn: '1d',
+//   });
+
+//   const mailOptions = {
+//     from: SMTP.USER,
+//     html: `<h2>Token</h2><code>${token}</code>`,
+//     subject: 'Password recovery token',
+//     to: user.email,
+//   };
+
+//   const res = await sendMail(mailOptions);
+
+//   return {
+//     isSend: res.success,
+//   };
+// },
