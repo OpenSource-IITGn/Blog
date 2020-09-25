@@ -56,23 +56,6 @@ class Post extends Model {
       },
     }
   }
-
-  // CRUD Methods
-  async create(postData) {
-    await Post.query().insert(postData)
-  }
-
-  async read(postQuery) {
-    return Post.query().where(postQuery)
-  }
-
-  async update(id, postData) {
-    await Post.query().findById(id).patch(postData)
-  }
-
-  async delete(id) {
-    await Post.query().deleteById(id)
-  }
 }
 
 export default Post

@@ -6,13 +6,10 @@ class Comment extends Model {
   }
 
   static get relationMappings() {
-    const { Post } = require('./post.model')
-    const { User } = require('./user.model')
-
     return {
       comment_author: {
         relation: Model.BelongsToOneRelation,
-        modelClass: User,
+        modelClass: __dirname + '/user.model',
         join: {
           from: 'comments.author_id',
           to: 'users.id',
@@ -20,30 +17,13 @@ class Comment extends Model {
       },
       comment_post: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Post,
+        modelClass: __dirname + '/post.model',
         join: {
           from: 'comments.post_id',
           to: 'posts.id',
         },
       },
     }
-  }
-
-  // CRUD Methods
-  async create(commentData) {
-    await Comment.query().insert(commentData)
-  }
-
-  async read(commentQuery) {
-    return Comment.query().where(commentQuery)
-  }
-
-  async update(id, commentData) {
-    await Comment.query().findById(id).patch(commentData)
-  }
-
-  async delete(id) {
-    await Comment.query().deleteById(id)
   }
 }
 

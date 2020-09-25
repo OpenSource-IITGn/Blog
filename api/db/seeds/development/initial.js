@@ -67,6 +67,7 @@ exports.seed = async (knex) => {
     body:
       'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
     keyword: 'blog',
+    likes: '3',
   }
   const post2 = {
     title: 'Title 2',
@@ -74,6 +75,25 @@ exports.seed = async (knex) => {
     body:
       'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
     keyword: 'blog',
+    likes: '4',
+  }
+
+  const post3 = {
+    title: 'Title 3',
+    author_id: 2,
+    body:
+      'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
+    keyword: 'blog',
+    likes: '2',
+  }
+
+  const post4 = {
+    title: 'Title 4',
+    author_id: 2,
+    body:
+      'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
+    keyword: 'blog',
+    likes: '1',
   }
 
   const comment1 = { post_id: 1, author_id: 1, body: 'commrnt 1' }
@@ -94,7 +114,7 @@ exports.seed = async (knex) => {
 
   await knex(TableNames.users).insert([user1, user2])
 
-  await knex(TableNames.posts).insert([post1, post2])
+  await knex(TableNames.posts).insert([post1, post2, post3, post4])
 
   await knex(TableNames.comments).insert([comment1, comment2])
 

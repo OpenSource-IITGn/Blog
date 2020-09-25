@@ -62,6 +62,7 @@ exports.up = async (knex) => {
       table.string('img_url', 2000)
       table.string('cover_url', 2000)
       table.string('cover_type')
+      table.string('likes').defaultTo('0')
       table.boolean('draft').defaultTo(true)
       table.timestamps(false, true)
     })

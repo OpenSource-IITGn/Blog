@@ -18,10 +18,3 @@ type Post {
   image: String
   comments: [Comment]!
 }
-
-type Comment {
-  id: Int
-  post_id: Int
-  author: String
-  Comment: String
-}

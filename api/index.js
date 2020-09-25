@@ -3,7 +3,7 @@ import koaRouter from 'koa-router'
 import { ApolloServer, graphiqlKoa } from 'apollo-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 
-import schema from './schema'
+import schema from './graphql'
 import Knex from 'knex'
 import { Model } from 'objection'
 import knexConfig from './knexFile'
