@@ -54,6 +54,81 @@ export const getPostById = async (id) => {
   }
 }
 
+// get all posts with arg filter
+
+export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, order }) => {
+  let postsResponse = {}
+  try {
+    // fetch all post data
+    if (!category_id && !user_id) {
+      let posts = await Post.query()
+        .orderByRaw(order)
+        .page(page, pageSize)
+        .withGraphFetched('[post_categories, author(selectName)]')
+        .modifiers({
+          selectName(builder) {
+            builder.select('first_name', 'last_name', 'id')
+          },
+        })
+      postsResponse = posts
+    }
+    // fetch category post data
+    else if (category_id && !user_id) {
+      let posts = await Post.query()
+        .joinRelated('post_categories')
+        .where('post_categories.id', category_id)
+        .orderByRaw(order)
+        .page(page, pageSize)
+        .withGraphFetched('[post_categories, author(selectName)]')
+        .modifiers({
+          selectName(builder) {
+            builder.select('first_name', 'last_name', 'id')
+          },
+        })
+      postsResponse = posts
+    }
+
+    // fetch user post data
+    else if (!category_id && user_id) {
+      let posts = await Post.query()
+        .where('author_id', user_id)
+        .orderByRaw(order)
+        .page(page, pageSize)
+        .withGraphFetched('[post_categories, author(selectName)]')
+        .modifiers({
+          selectName(builder) {
+            builder.select('first_name', 'last_name', 'id')
+          },
+        })
+
+      postsResponse = posts
+    }
+
+    // fetch user data for a category posts
+    else {
+      let posts = await Post.query()
+        .joinRelated('post_categories')
+        .where('author.id', user_id)
+        .where('post_categories.id', category_id)
+        .orderByRaw(order)
+        .page(page, pageSize)
+        .withGraphFetched('[post_categories, author(selectName)]')
+        .modifiers({
+          selectName(builder) {
+            builder.select('first_name', 'last_name', 'id')
+          },
+        })
+      postsResponse = posts
+    }
+
+    const postsData = postsResponse.results.map((post) => handlePostMeta(post))
+    return { posts: postsData }
+  } catch (err) {
+    const { type, message } = errorHandler(err)
+    return { type, msg: message }
+  }
+}
+
 // get Home Screen Posts
 export const getPostsByType = async (type) => {
   let postsData = []

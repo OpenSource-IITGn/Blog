@@ -1,12 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 
-import { getPostsResolver, getPostsByType, getPostById } from './controller'
+import { getPostsResolver, getPostsByType, getPostById, getPostsByFilter } from './controller'
 
 const resolvers = {
   Query: {
     getPostsByType: getPostsResolver(async ({ type }) => await getPostsByType(type)),
     getPostById: getPostsResolver(async ({ id }) => await getPostById(id)),
+    getPosts: getPostsResolver(async (args) => await getPostsByFilter(args)),
   },
 }
 
