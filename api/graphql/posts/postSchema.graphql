@@ -1,8 +1,8 @@
 type Query {
-  getPostsByType(type: String): [Post]!
-  getPostsByCategory(category_id: Int): [Post]!
-  getPostById(id: Int): PostDetails!
-  getPostsByUser(userId: Int): [Post]!
+  getPostsByType(type: String): PostsResponse!
+  getPostsByCategory(category_id: Int, pageSize: Int, page: Int, order: String): PostsResponse!
+  getPostById(id: Int): PostDetailsResponse!
+  getPostsByUser(userId: Int): PostsResponse!
 }
 
 type Post {
@@ -28,4 +28,16 @@ type PostDetails {
   description: String
   image: String
   comments: [Comment]!
+}
+
+type PostsResponse {
+  type: String
+  msg: String
+  posts: [Post]!
+}
+
+type PostDetailsResponse {
+  type: String
+  msg: String
+  post: PostDetails
 }
