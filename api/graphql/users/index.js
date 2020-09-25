@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import {} from './controller'
+// import {} from './controller'
 
 const resolvers = {
   Query: {},

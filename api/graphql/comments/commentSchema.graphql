@@ -1,6 +1,6 @@
 type Comment {
   id: Int
   post_id: Int
-  author: String
-  Comment: String
+  comment_author: User
+  body: String
 }

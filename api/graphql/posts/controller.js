@@ -12,8 +12,7 @@ const handlePostMeta = (post) => {
   }
 
   // set author name from Id
-  post.author = `${author.first_name} ${author.last_name}`
-
+  post.author_name = `${author.first_name} ${author.last_name}`
   return post
 }
 
@@ -23,10 +22,29 @@ export const getPostsResolver = (callback) => async (parent, args, ctx, info) =>
 }
 
 // get Post by Id
-export const getPostById = async (id) =>
-  await Post.query({ id }).withGraphFetched(
-    '[post_categories, comments[comment_author], author, post_likes'
-  )
+export const getPostById = async (id) => {
+  const post = await Post.query()
+    .findById(id)
+    .withGraphFetched({
+      post_categories: true,
+      author: {
+        $modify: ['selectName'],
+      },
+      comments: {
+        comment_author: {
+          $modify: ['selectName'],
+        },
+      },
+    })
+    .modifiers({
+      selectName(builder) {
+        builder.select('first_name', 'last_name', 'id')
+      },
+    })
+
+  console.log(post)
+  return post
+}
 
 // get Home Screen Posts
 export const getPosts = async (type, category) => {
@@ -53,6 +71,7 @@ export const getPosts = async (type, category) => {
             builder.select('first_name', 'last_name', 'id')
           },
         })
+      console.log(recentPosts)
       postsData = recentPosts.map((post) => handlePostMeta(post))
       break
     case 'recommended':
