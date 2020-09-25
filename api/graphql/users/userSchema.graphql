@@ -1,7 +1,25 @@
+type Mutation {
+  signUp(email: String!, password: String!, userName: String!): QueryResponse!
+  signIn(email: String!, password: String!): SignInResponse!
+  changePassword(password: String!): QueryResponse!
+}
+
 type User {
   id: Int
   role: String!
   email: String!
   first_name: String!
   last_name: String
+}
+
+type SignInResponse {
+  ok: Boolean!
+  msg: String
+  token: String
+  user: User
+}
+
+type QueryResponse {
+  ok: Int!
+  msg: String
 }

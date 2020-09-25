@@ -1,5 +1,4 @@
 import { Model } from 'objection'
-import argon2 from 'argon2'
 
 class User extends Model {
   static get tableName() {
@@ -64,10 +63,6 @@ class User extends Model {
 
   async delete(id) {
     await User.query().deleteById(id)
-  }
-
-  comparePassword(password, hash) {
-    return argon2.verify(hash, password)
   }
 }
 

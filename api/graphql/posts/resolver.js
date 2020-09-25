@@ -2,6 +2,8 @@ import Post from '../../db/models/post.model'
 import {} from 'objection'
 import errorHandler from '../../db/exceptions/db'
 
+//TODO: Remove Redundant code
+
 const handlePostMeta = (post) => {
   const CategoryArray = post.post_categories
   const author = post.author

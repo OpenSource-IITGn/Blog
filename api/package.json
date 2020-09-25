@@ -18,6 +18,7 @@
     "dayjs": "^1.8.36",
     "dotenv": "^8.2.0",
     "graphql-tools": "^6.2.3",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.5",
     "koa": "^2.13.0",
     "koa-router": "^9.4.0",

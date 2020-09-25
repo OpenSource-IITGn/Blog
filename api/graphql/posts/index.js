@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { getPostsResolver, getPostsByType, getPostById, getPostsByFilter } from './controller'
+import { getPostsResolver, getPostsByType, getPostById, getPostsByFilter } from './resolver'
 
 const resolvers = {
   Query: {
