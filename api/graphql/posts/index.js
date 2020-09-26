@@ -5,9 +5,9 @@ import { getPostsResolver, getPostsByType, getPostById, getPostsByFilter } from 
 
 const resolvers = {
   Query: {
-    getPostsByType: getPostsResolver(async ({ type }) => await getPostsByType(type)),
-    getPostById: getPostsResolver(async ({ id }) => await getPostById(id)),
-    getPosts: getPostsResolver(async (args) => await getPostsByFilter(args)),
+    getPostsByType: getPostsResolver(async ({ type }, ctx) => await getPostsByType(type)),
+    getPostById: getPostsResolver(async ({ id }, ctx) => await getPostById(id, ctx)),
+    getPosts: getPostsResolver(async (args, ctx) => await getPostsByFilter(args)),
   },
 }
 

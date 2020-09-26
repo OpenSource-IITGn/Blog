@@ -1,6 +1,7 @@
 import Post from '../../db/models/post.model'
 import {} from 'objection'
 import errorHandler from '../../db/exceptions/db'
+import { Unauthorized } from '../../db/exceptions/user'
 
 //TODO: Remove Redundant code
 
@@ -23,12 +24,16 @@ const handlePostMeta = (post) => {
 }
 
 export const getPostsResolver = (callback) => async (parent, args, ctx, info) => {
-  const postsData = await callback(args)
+  const postsData = await callback(args, ctx)
   return postsData
 }
 
 // get Post by Id
-export const getPostById = async (id) => {
+export const getPostById = async (id, ctx) => {
+  // authwall example
+  // if (ctx.user.jwtOriginalError) {
+  //   return { type: 'UNAUTHORIZED', msg: Unauthorized }
+  // }
   try {
     const post = await Post.query()
       .findById(id)
