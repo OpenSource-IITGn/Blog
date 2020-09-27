@@ -1,5 +1,9 @@
 .posts-list {
     .flex-container {
         display: flex;
+
+        .posts-container {
+            width: 100%;
+        }
     }
 }

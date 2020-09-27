@@ -61,6 +61,7 @@ export const getPostById = async (id) => {
 // get all posts with arg filter
 
 export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, order }) => {
+  console.log('getPostsByFilter')
   let postsResponse = {}
   try {
     // fetch all post data

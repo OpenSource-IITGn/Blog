@@ -1,10 +1,14 @@
-import { Col, Divider, Row } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
-import TagsContainer from "./tagsContainer";
+import { Col, Divider, Row } from 'antd'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import TagsContainer from './tagsContainer'
 
 function PostItem({ post }) {
-  const postCategories = post.categories.split(" ");
+  console.log(post)
+  let postCategories = post.categories
+  if (typeof post.categories === 'string') {
+    postCategories = post.categories.split(' ')
+  }
   return (
     <div className="post-item">
       <Row>
@@ -32,7 +36,7 @@ function PostItem({ post }) {
       </Row>
       <Divider />
     </div>
-  );
+  )
 }
 
-export default PostItem;
+export default PostItem

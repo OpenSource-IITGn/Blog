@@ -1,45 +1,45 @@
-import React from "react";
-import PostsGrid from "../components/PostsGrid";
-import trending from "./../assets/mocks/trending";
-import featured from "./../assets/mocks/featured";
-import GridPost from "../components/gridPost";
-import PostsList from "../components/postsList";
-import { Col, Row } from "antd";
-import SideBar from "../components/sideBar";
+import React from 'react'
+import PostsGrid from '../components/PostsGrid'
+import trending from './../assets/mocks/trending'
+import featured from './../assets/mocks/featured'
+import GridPost from '../components/gridPost'
+import PostsList from '../components/postsList'
+import { Col, Row } from 'antd'
+import SideBar from '../components/sideBar'
 
 const trendingGridConfig = {
   1: {
-    gridArea: "1 / 2 / 3 / 3",
+    gridArea: '1 / 2 / 3 / 3',
   },
-};
+}
 
 const featuredGridConfig = {
   0: {
-    gridArea: "1 / 1 / 2 / 3",
-    height: "300px",
+    gridArea: '1 / 1 / 2 / 3',
+    height: '300px',
   },
   1: {
-    height: "300px",
+    height: '300px',
   },
   3: {
-    height: "640px",
-    marginLeft: "30px",
+    height: '640px',
+    marginLeft: '30px',
   },
-};
+}
 
 const mergeStyles = (posts, config) => {
   posts.forEach((post, index) => {
-    post.style = config[index];
-    post.author = "Anup Aglawe";
+    post.style = config[index]
+    post.author = 'Anup Aglawe'
     post.description =
-      "Quis incididunt tempor mollit sunt incididunt non. Commodo i sunt consequat ullamco occaecat labore duis culpa occaecat pariatur consectetur qui cupidatat esse. Enim commodo sint adipisicing irure.";
-  });
-};
+      'Quis incididunt tempor mollit sunt incididunt non. Commodo i sunt consequat ullamco occaecat labore duis culpa occaecat pariatur consectetur qui cupidatat esse. Enim commodo sint adipisicing irure.'
+  })
+}
 
-mergeStyles(trending, trendingGridConfig);
-mergeStyles(featured, featuredGridConfig);
-const lastFeatured = featured.pop();
-const allPosts = [...trending, ...featured, ...trending];
+mergeStyles(trending, trendingGridConfig)
+mergeStyles(featured, featuredGridConfig)
+const lastFeatured = featured.pop()
+const allPosts = [...trending, ...featured, ...trending]
 
 function Home() {
   return (
@@ -75,7 +75,7 @@ function Home() {
         </div>
       </section>
     </main>
-  );
+  )
 }
 
-export default Home;
+export default Home
