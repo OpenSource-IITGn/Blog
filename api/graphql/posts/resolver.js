@@ -2,6 +2,7 @@ import Post from '../../db/models/post.model'
 import {} from 'objection'
 import errorHandler from '../../db/exceptions/db'
 import { Unauthorized } from '../../db/exceptions/user'
+import { getCategoryByLabel } from '../categories/resolvers'
 
 //TODO: Remove Redundant code
 
@@ -29,12 +30,7 @@ export const getPostsResolver = (callback) => async (parent, args, ctx, info) =>
 }
 
 // get Post by Id
-export const getPostById = async (id, ctx) => {
-  // authwall example
-  // if (ctx.user.jwtOriginalError) {
-  //   return { type: 'UNAUTHORIZED', msg: Unauthorized }
-  // }
-  // console.log(ctx.user)
+export const getPostById = async (id) => {
   try {
     const post = await Post.query()
       .findById(id)
@@ -194,5 +190,61 @@ export const getPostsByType = async (type) => {
   } catch (err) {
     const { type, message } = errorHandler(err)
     return { type, msg: message }
+  }
+}
+
+// create Post Resolver
+export const createPost = async (args, ctx) => {
+  // authwall
+  if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+    return { type: 'UNAUTHORIZED', msg: Unauthorized }
+  }
+
+  const { title, body, categories } = args
+  const userContext = ctx.user
+  const userId = userContext.user.id
+  const catIds = []
+  try {
+    await Promise.all(
+      Object.values(categories).map(async (label) => {
+        const catObject = await getCategoryByLabel(label)
+        if (!catObject.msg && catObject.category) {
+          const catId = catObject.category.id
+          catIds.push({ id: catId })
+        }
+      })
+    )
+  } catch (err) {
+    console.log('Failed to add categories or Categories missing.')
+  }
+
+  try {
+    const trx = await Post.startTransaction()
+    await Post.query(trx).insertGraph(
+      [
+        {
+          title,
+          body,
+          author_id: userId,
+          keyword: categories.tag1,
+          likes: '0',
+          post_categories: catIds,
+        },
+      ],
+      {
+        relate: ['post_categories'],
+      }
+    )
+    await trx.commit()
+
+    return {
+      ok: true,
+    }
+  } catch (err) {
+    const { message } = errorHandler(err)
+    return {
+      ok: false,
+      msg: message,
+    }
   }
 }

@@ -20,7 +20,7 @@ exports.up = async (knex) => {
 
     .createTable(TableNames.categories, (table) => {
       table.increments().notNullable()
-      table.string('label', 100).notNullable()
+      table.string('label', 100).notNullable().unique()
       table.string('description', 300)
     })
 

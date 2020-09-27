@@ -21,7 +21,7 @@ type PostDetails {
   title: String
   updated_at: String
   created_at: String
-  categories: [String]!
+  post_categories: [Category]!
   likes: String
   author: User!
   description: String
