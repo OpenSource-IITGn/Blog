@@ -34,6 +34,7 @@ export const getPostById = async (id, ctx) => {
   // if (ctx.user.jwtOriginalError) {
   //   return { type: 'UNAUTHORIZED', msg: Unauthorized }
   // }
+  // console.log(ctx.user)
   try {
     const post = await Post.query()
       .findById(id)

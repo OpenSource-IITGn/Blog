@@ -1,6 +1,13 @@
-type Comment {
+type Category {
   id: Int
-  post_id: Int
-  author: String
-  Comment: String
+  label: String
+  description: String
+}
+
+input Categories {
+  tag1: String
+  tag2: String
+  tag3: String
+  tag4: String
+  tag5: String
 }
