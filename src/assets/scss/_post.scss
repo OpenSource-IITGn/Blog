@@ -1,0 +1,74 @@
+.post-details {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    .post-head {
+        display: flex;
+        margin: 2rem 0;
+        align-items: center;
+        padding: 2rem;
+        background-color: rgba(0, 0, 0, 0.02);
+
+        .author-avatar {
+            img {
+                max-width: 60%;
+                border-radius: 50%;
+            }
+        }
+
+        .author-desc {
+            .author-name {
+                font-weight: 700;
+                font-size: 1.2rem;
+            }
+
+            .author-bio {
+                font-size: 0.95rem;
+                color: rgba(0, 0, 0, 0.44);
+            }
+        }
+    }
+
+    .post-body {
+        .post-title {
+            font-family: 'Lora', serif;
+            // font-family: 'proxima-nova', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .post-date {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1mm;
+            color: rgba(0, 0, 0, 0.44);
+        }
+
+        .post-cover-image {
+            margin: 2rem 0;
+
+            img {
+                max-width: 100%;
+                border-radius: 0px;
+            }
+        }
+
+        .post-desc {
+            // font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            line-height: 1.95;
+            margin-top: 3em;
+            letter-spacing: 0.2mm;
+            color: rgba(0, 0, 0, 0.7);
+
+            h3 {
+                margin: 1rem 0;
+                font-size: 1.4rem;
+                letter-spacing: normal;
+                font-weight: 700;
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import './App.css'
 import Nav from './components/nav'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import PageTemplate from './components/pageTemplate'
+import BlogDetail from './pages/blogDetail'
 
 function App() {
   const client = useAppApolloClient()
@@ -17,6 +18,8 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/:page" component={PageTemplate} />
+            <Route exact path="/blog/:slug" component={BlogDetail} />
+            <Route exact path="/blog/page/:num" component={404} />
             <Route exact path="" render={() => <Redirect to="/home" />} />
             <Route exact path="" render={() => 404} />
           </Switch>

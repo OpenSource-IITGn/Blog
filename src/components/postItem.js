@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import TagsContainer from './tagsContainer'
 
 function PostItem({ post }) {
-  console.log(post)
   let postCategories = post.categories
   if (typeof post.categories === 'string') {
     postCategories = post.categories.split(' ')
