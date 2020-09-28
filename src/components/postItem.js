@@ -1,16 +1,23 @@
 import { Col, Divider, Row } from 'antd'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import TagsContainer from './tagsContainer'
 
 function PostItem({ post }) {
   let postCategories = post.categories
+  let history = useHistory()
+
   if (typeof post.categories === 'string') {
     postCategories = post.categories.split(' ')
   }
+
+  const handleClick = (e) => {
+    history.push(`/blog/${post.id}`)
+  }
+
   return (
     <div className="post-item">
-      <Row>
+      <Row onClick={handleClick}>
         <Col span={17}>
           <div className="post-content">
             <h3 className="post-title">{post.title}</h3>

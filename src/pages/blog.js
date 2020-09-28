@@ -15,10 +15,11 @@ function Blog() {
     return <div>loading</div>
   }
   if (error) {
-    return <div> Error : questionData.error </div>
+    return <div> Error : {data.error} </div>
   }
 
   const postsResponse = data.getPosts
+
   // implies err
   if (postsResponse.msg || postsResponse.type) {
     return (

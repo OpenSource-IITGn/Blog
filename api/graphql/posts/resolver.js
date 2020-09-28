@@ -51,6 +51,8 @@ export const getPostById = async (id) => {
         },
       })
       .throwIfNotFound()
+    post.image = '1.jpg'
+    post.created_at = post.created_at.toString()
     return { post }
   } catch (err) {
     const { type, message } = errorHandler(err)

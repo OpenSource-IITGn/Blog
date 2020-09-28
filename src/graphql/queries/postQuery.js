@@ -24,3 +24,35 @@ export const GET_POSTS_QUERY = gql`
     }
   }
 `
+export const GET_POST_BY_ID = gql`
+  query getPostById($id: Int) {
+    getPostById(id: $id) {
+      msg
+      type
+      post {
+        title
+        post_categories {
+          label
+        }
+        created_at
+        image
+        description
+        body
+        likes
+        author {
+          id
+          first_name
+          last_name
+        }
+        comments {
+          id
+          body
+          comment_author {
+            first_name
+            last_name
+          }
+        }
+      }
+    }
+  }
+`

@@ -25,6 +25,7 @@ type PostDetails {
   likes: String
   author: User!
   description: String
+  body: String
   image: String
   comments: [Comment]!
 }
