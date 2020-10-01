@@ -3,8 +3,14 @@ import React, { useState } from 'react'
 import Dante from 'Dante2'
 import { DanteTooltipConfig } from 'Dante2/package/es/components/popovers/toolTip.js'
 import Icons from 'Dante2/package/es/components/icons'
+import { useCreatePostMutation } from '../../graphql/mutations'
+import { useHistory } from 'react-router'
 
 function CreatePost() {
+  const [createPostMutation, createPostMutationResults] = useCreatePostMutation()
+
+  let history = useHistory()
+
   const [formState, setFormState] = useState(() => ({
     _id: null,
     body: null,
@@ -47,12 +53,23 @@ function CreatePost() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!title || !body.blocks[0].text) return // body.blocks[0].text: First Paragrah in Dante
 
     setIsSubmitting(true)
-    // TODO: Add Blog Service/Mutation
+
+    try {
+      const categories = 'cat1, cat2'
+      const response = await createPostMutation(title, JSON.stringify(body), categories)
+      console.log(response)
+      if (!response.data.createPost || !response.data.createPost.ok) {
+        return <div>response.createPost.error</div>
+      }
+      history.push('/blog')
+    } catch (e) {
+      console.log('Failed to add Question - Try again')
+    }
   }
 
   const handleChange = (editor) => {
@@ -141,6 +158,7 @@ function CreatePost() {
                   ]}
                   onChange={(editor) => handleChange(editor)}
                 />
+                <button>Submit</button>
               </form>
             </Col>
           </Row>
