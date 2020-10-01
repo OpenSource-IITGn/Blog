@@ -1,3 +1,4 @@
+import Dante from 'Dante2'
 import dayjs from 'dayjs'
 import React from 'react'
 import { useParams } from 'react-router'
@@ -28,8 +29,6 @@ function Post() {
 
   const postDetails = postResponse.post
   const { id, title, author, body, comments, likes, post_categories, created_at } = postDetails
-  console.log(created_at)
-
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
 
   return (
@@ -58,7 +57,9 @@ function Post() {
         <div className="post-cover-image">
           <img src={require(`./../assets/images/4.jpg`)} className="post-item-image" alt="4.jpg" />
         </div>
-        <div className="post-desc">{body}</div>
+        <div className="post-desc">
+            <Dante read_only={true} content={JSON.parse(body)} />
+        </div>
       </div>
       <div className="post-foot"></div>
     </div>

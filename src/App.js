@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import PageTemplate from './components/pageTemplate'
 import BlogDetail from './pages/blogDetail'
 import BlogMock from './pages/blogMock'
+import CreatePost from './components/forms/createPost'
 
 function App() {
   const client = useAppApolloClient()
@@ -20,6 +21,7 @@ function App() {
           <Switch>
             <Route exact path="/:page" component={PageTemplate} />
             <Route exact path="/blog/mock" component={BlogMock} />
+            <Route exact path="/blog/create" component={CreatePost} />
             <Route exact path="/blog/:slug" component={BlogDetail} />
             <Route exact path="/blog/page/:num" component={404} />
             <Route exact path="" render={() => <Redirect to="/home" />} />
