@@ -1,34 +1,40 @@
-import Avatar from "antd/lib/avatar/avatar";
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import Avatar from 'antd/lib/avatar/avatar'
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 const navLinks = [
   {
-    title: "Home",
-    path: "/",
+    title: 'Home',
+    path: '/',
   },
   {
-    title: "Blog",
-    path: "/blog",
+    title: 'Blog',
+    path: '/blog',
   },
   {
-    title: "About",
-    path: "/about",
+    title: 'About',
+    path: '/about',
   },
   {
-    title: "Login",
-    path: "/login",
+    title: 'Login',
+    path: '/login',
   },
-];
+]
 
 function Nav() {
-  const [showMenu, setshowMenu] = useState(false);
+  const [showMenu, setshowMenu] = useState(false)
 
   return (
     <div className="navbar">
-      <div className="nav-brand">IITians Blog</div>
+      <div className="nav-brand">
+        <img
+          src="https://www.iconfinder.com/data/icons/social-media-black-white-1/1024/bw-4-512.png"
+          alt=""
+          width="40px"
+        />
+      </div>
       <div className="nav-content">
-        <div className={`nav-content-items ${showMenu && "active"}`}>
+        <div className={`nav-content-items ${showMenu && 'active'}`}>
           <ul>
             {navLinks.map(({ title, path }, i) => (
               <li key={i}>
@@ -37,9 +43,7 @@ function Nav() {
             ))}
           </ul>
           <div className="nav-avatar">
-            <Avatar style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
-              U
-            </Avatar>
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
           </div>
         </div>
         <div className="toggle-btn" onClick={() => setshowMenu(!showMenu)}>
@@ -47,7 +51,7 @@ function Nav() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Nav;
+export default Nav

@@ -12,6 +12,7 @@ exports.seed = async (knex) => {
   await knex(TableNames.posts).del()
   await knex(TableNames.users).del()
   await knex(TableNames.roles).del()
+
   // Inserts seed entries
   const role = {
     role: 'admin',

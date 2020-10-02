@@ -9,9 +9,9 @@ function AuthForm({ isLogin }) {
     <main className="home">
       <section className="container">
         <div className="row">
-          <Row>
-            <Col lg={17} md={24}>
-              <div className="auth-form">{form}</div>
+          <Row justify="center" align="middle">
+            <Col lg={14} md={18}>
+              {form}
             </Col>
           </Row>
         </div>

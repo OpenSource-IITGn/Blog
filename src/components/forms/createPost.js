@@ -60,17 +60,17 @@ function CreatePost() {
 
     setIsSubmitting(true)
 
-    // try {
-    const categories = tags
-    const response = await createPostMutation(title, JSON.stringify(body), categories)
-    console.log(response)
-    if (!response.data.createPost || !response.data.createPost.ok) {
-      return <div>response.createPost.error</div>
+    try {
+      const categories = tags
+      const response = await createPostMutation(title, JSON.stringify(body), categories)
+      console.log(response)
+      if (!response.data.createPost || !response.data.createPost.ok) {
+        return <div>response.createPost.error</div>
+      }
+      history.push('/blog')
+    } catch (e) {
+      console.log('Failed to add Question - Try again')
     }
-    history.push('/blog')
-    // } catch (e) {
-    //   console.log('Failed to add Question - Try again')
-    // }
   }
 
   const handleChange = (editor) => {
