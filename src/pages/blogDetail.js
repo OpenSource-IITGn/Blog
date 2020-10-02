@@ -3,11 +3,13 @@ import React from 'react'
 import trending from '../assets/mocks/trending'
 import Post from '../components/Post'
 import PostsGrid from '../components/PostsGrid'
+
 const trendingGridConfig = {
   1: {
     gridArea: '1 / 2 / 3 / 3',
   },
 }
+
 const mergeStyles = (posts, config) => {
   posts.forEach((post, index) => {
     post.style = config[index]

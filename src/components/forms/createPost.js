@@ -15,7 +15,7 @@ function CreatePost() {
     _id: null,
     body: null,
     title: '',
-    tags: [],
+    tags: '',
     file: null,
     imgPreview: null,
   }))
@@ -32,10 +32,11 @@ function CreatePost() {
     }))
   }
 
-  const handleTagsChange = (event, newTags) => {
+  const handleCategoriesChange = (e) => {
+    const newTags = e.target.value
     setFormState((prevState) => ({
       ...prevState,
-      tags: newTags.length > 6 ? tags : newTags,
+      tags: newTags,
     }))
   }
 
@@ -59,17 +60,17 @@ function CreatePost() {
 
     setIsSubmitting(true)
 
-    try {
-      const categories = 'cat1, cat2'
-      const response = await createPostMutation(title, JSON.stringify(body), categories)
-      console.log(response)
-      if (!response.data.createPost || !response.data.createPost.ok) {
-        return <div>response.createPost.error</div>
-      }
-      history.push('/blog')
-    } catch (e) {
-      console.log('Failed to add Question - Try again')
+    // try {
+    const categories = tags
+    const response = await createPostMutation(title, JSON.stringify(body), categories)
+    console.log(response)
+    if (!response.data.createPost || !response.data.createPost.ok) {
+      return <div>response.createPost.error</div>
     }
+    history.push('/blog')
+    // } catch (e) {
+    //   console.log('Failed to add Question - Try again')
+    // }
   }
 
   const handleChange = (editor) => {
@@ -77,7 +78,6 @@ function CreatePost() {
       ...prevState,
       body: editor.emitSerializedOutput(),
     }))
-    console.log(JSON.stringify(editor.emitSerializedOutput()))
   }
 
   return (
@@ -90,8 +90,14 @@ function CreatePost() {
                 <input
                   className="post-title-input"
                   placeholder="Write Blog title"
-                  value={formState.title}
+                  value={title}
                   onChange={handleTitleChange}
+                />
+                <input
+                  className="categories-input"
+                  placeholder="Tags ( comma separated )"
+                  value={tags}
+                  onChange={handleCategoriesChange}
                 />
                 <Dante
                   className="blog-editor"
@@ -158,7 +164,7 @@ function CreatePost() {
                   ]}
                   onChange={(editor) => handleChange(editor)}
                 />
-                <button>Submit</button>
+                <button className="add-form-btn">Submit</button>
               </form>
             </Col>
           </Row>

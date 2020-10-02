@@ -30,13 +30,13 @@ function PostItem({ post }) {
         </Col>
         <Col span={7}>
           <figure>
-            <Link to={post.link}>
-              <img
-                src={require(`./../assets/images/${post.image}`)}
-                className="post-item-image"
-                alt={post.image}
-              />
-            </Link>
+            {/* <Link to={post.link}> */}
+            <img
+              src={require(`./../assets/images/${post.image}`)}
+              className="post-item-image"
+              alt={post.image}
+            />
+            {/* </Link> */}
           </figure>
         </Col>
       </Row>
