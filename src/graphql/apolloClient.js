@@ -16,7 +16,7 @@ const authMiddleware = () =>
     if (authToken) {
       operation.setContext({
         headers: {
-          Authorization: authToken,
+          Authorization: `Bearer ${authToken}`,
         },
       })
     }
