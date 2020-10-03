@@ -20,7 +20,6 @@ export const useLogout = () => {
   const logout = async () => {
     await apolloClient.clearStore() // we remove all information in the store
     await removeAuthToken()
-    window.localStorage.clear()
   }
   return logout
 }

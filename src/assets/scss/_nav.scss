@@ -58,6 +58,22 @@
                 color: $text-link;
             }
         }
+
+        button {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            margin: 0.5rem 1rem 0.5rem 0.5rem;
+            text-decoration: none;
+            padding: 0 1rem;
+            font-weight: 500;
+            color: $text-color;
+
+            &:hover {
+                cursor: pointer;
+                color: $text-link;
+            }
+        }
     }
 }
 
