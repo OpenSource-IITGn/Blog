@@ -17,7 +17,10 @@ export const USER_SIGNIN = gql`
       ok
       msg
       token
-      user
+      user {
+        first_name
+        last_name
+      }
     }
   }
 `
