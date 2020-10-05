@@ -83,7 +83,7 @@ exports.seed = async (knex) => {
     title: 'Title 3',
     author_id: 2,
     body:
-      'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
+      '{"blocks":[{"key":"dr627","text":"dfgdfg dfg dfg dfg dfg","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":19,"length":3,"style":"BOLD"}],"entityRanges":[],"data":{}}],"entityMap":{}}',
     keyword: 'blog',
     likes: '2',
   }
@@ -92,7 +92,7 @@ exports.seed = async (knex) => {
     title: 'Title 4',
     author_id: 2,
     body:
-      'asd asd asd asd asdsdgdf gdfg dfg dfg df jghfj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ghj ',
+      '{"blocks":[{"key":"dr627","text":"dfgdfg dfg dfg dfg dfg","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":19,"length":3,"style":"BOLD"}],"entityRanges":[],"data":{}}],"entityMap":{}}',
     keyword: 'blog',
     likes: '1',
   }

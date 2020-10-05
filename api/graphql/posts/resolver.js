@@ -62,13 +62,26 @@ export const getPostById = async (id) => {
 
 // get all posts with arg filter
 
-export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, order }) => {
-  console.log('getPostsByFilter')
-  let postsResponse = {}
+export const getPostsByFilter = async ({
+  search_query,
+  category_id,
+  user_id,
+  pageSize,
+  page,
+  order,
+}) => {
+  let posts = Post.query()
+  let postsList = []
+
+  if (search_query) {
+    posts.whereRaw('SIMILARITY(title, ?) > 0.7', search_query)
+  }
+  const postCount = await posts.clone().count()
+
   try {
     // fetch all post data
     if (!category_id && !user_id) {
-      let posts = await Post.query()
+      postsList = await posts
         .orderByRaw(order)
         .page(page, pageSize)
         .withGraphFetched('[post_categories, author(selectName)]')
@@ -77,11 +90,11 @@ export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, o
             builder.select('first_name', 'last_name', 'id')
           },
         })
-      postsResponse = posts
+      // console.log(posts.toKnexQuery().toSQL().toNative())
     }
     // fetch category post data
     else if (category_id && !user_id) {
-      let posts = await Post.query()
+      postsList = await posts
         .joinRelated('post_categories')
         .where('post_categories.id', category_id)
         .orderByRaw(order)
@@ -92,12 +105,11 @@ export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, o
             builder.select('first_name', 'last_name', 'id')
           },
         })
-      postsResponse = posts
     }
 
     // fetch user post data
     else if (!category_id && user_id) {
-      let posts = await Post.query()
+      postsList = await posts
         .where('author_id', user_id)
         .orderByRaw(order)
         .page(page, pageSize)
@@ -107,13 +119,11 @@ export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, o
             builder.select('first_name', 'last_name', 'id')
           },
         })
-
-      postsResponse = posts
     }
 
     // fetch user data for a category posts
     else {
-      let posts = await Post.query()
+      postsList = await posts
         .joinRelated('post_categories')
         .where('author.id', user_id)
         .where('post_categories.id', category_id)
@@ -125,11 +135,9 @@ export const getPostsByFilter = async ({ category_id, user_id, pageSize, page, o
             builder.select('first_name', 'last_name', 'id')
           },
         })
-      postsResponse = posts
     }
-
-    const postsData = postsResponse.results.map((post) => handlePostMeta(post))
-    return { posts: postsData }
+    const postsData = postsList.results.map((post) => handlePostMeta(post))
+    return { posts: postsData, total: postCount[0].count }
   } catch (err) {
     const { type, message } = errorHandler(err)
     return { type, msg: message }

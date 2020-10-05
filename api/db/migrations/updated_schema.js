@@ -7,6 +7,7 @@ const { TableNames } = require('../constants')
  */
 exports.up = async (knex) => {
   await knex.schema
+    .raw('CREATE EXTENSION IF NOT EXISTS pg_trgm')
 
     .createTable(TableNames.roles, (table) => {
       table.increments().notNullable()

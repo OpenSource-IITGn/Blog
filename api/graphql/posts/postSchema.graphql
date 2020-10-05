@@ -1,7 +1,14 @@
 type Query {
   getPostsByType(type: String): PostsResponse!
   getPostById(id: Int): PostDetailsResponse!
-  getPosts(user_id: Int, category_id: Int, pageSize: Int, page: Int, order: String): PostsResponse!
+  getPosts(
+    search_query: String
+    user_id: Int
+    category_id: Int
+    pageSize: Int
+    page: Int
+    order: String
+  ): PostsResponse!
 }
 
 type Post {
@@ -33,6 +40,7 @@ type PostDetails {
 type PostsResponse {
   type: String
   msg: String
+  total: Int
   posts: [Post]!
 }
 
