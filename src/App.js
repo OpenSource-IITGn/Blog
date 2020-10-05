@@ -35,7 +35,7 @@ function App() {
                 render={(props) => <AuthForm {...props} isLogin={false} />}
               />
               <Route exact path="/:page" component={PageTemplate} />
-
+              <Route exact path="/blog/page=:num" component={Blog} />
               <Route exact path="/blog/mock" component={BlogMock} />
               <ProtectedRoute exact path="/blog/create" component={CreatePost} />
               <Route exact path="/blog/:slug" component={BlogDetail} />

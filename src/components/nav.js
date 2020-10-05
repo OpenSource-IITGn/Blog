@@ -63,7 +63,7 @@ function Nav() {
     <>
       <ul>
         <button onClick={handleSearchToggle}>
-          <i class="gg-search"></i>
+          <i className="gg-search"></i>
         </button>
         {navLinks.map(({ title, path }, i) => (
           <li key={i}>
