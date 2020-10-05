@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { UserContext } from '../store/userContext'
 import { useLogout } from '../helpers/authToken'
-
+import './../assets/icons/css.gg.css'
 const navLinks = [
   {
     title: 'Home',
@@ -22,6 +22,8 @@ const navLinks = [
 
 function Nav() {
   const [showMenu, setshowMenu] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
+
   const { user, dispatch } = useContext(UserContext)
   const history = useHistory()
   const { isAuthenticated } = user
@@ -51,6 +53,59 @@ function Nav() {
     return `${first}${second}`.toUpperCase()
   }
 
+  const handleSearchToggle = () => {
+    setIsSearching(!isSearching)
+  }
+
+  const handlePostSearch = () => {}
+
+  const navButtons = (
+    <>
+      <ul>
+        <button onClick={handleSearchToggle}>
+          <i class="gg-search"></i>
+        </button>
+        {navLinks.map(({ title, path }, i) => (
+          <li key={i}>
+            <NavLink to={path}>{title}</NavLink>
+          </li>
+        ))}
+        <li>
+          {isAuthenticated ? (
+            <button onClick={handleLogout}> Log Out</button>
+          ) : (
+            <NavLink to="/login"> Login </NavLink>
+          )}
+        </li>
+      </ul>
+      {isAuthenticated && (
+        <div className="nav-avatar">
+          <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
+            {generateInitials()}
+          </Avatar>
+        </div>
+      )}
+    </>
+  )
+
+  const searchBar = (
+    <>
+      <div className="search-container">
+        <input
+          type="text"
+          className={`search-bar`}
+          name="search-bar"
+          placeholder="Search title / Author / Tags"
+        />
+        <button className="search-btn" onClick={handlePostSearch}>
+          <i className="gg-search"></i>
+        </button>
+      </div>
+      <button onClick={handleSearchToggle}>
+        <i className="gg-close"></i>
+      </button>
+    </>
+  )
   return (
     <div className="navbar">
       <div className="nav-brand">
@@ -62,27 +117,7 @@ function Nav() {
       </div>
       <div className="nav-content">
         <div className={`nav-content-items ${showMenu && 'active'}`}>
-          <ul>
-            {navLinks.map(({ title, path }, i) => (
-              <li key={i}>
-                <NavLink to={path}>{title}</NavLink>
-              </li>
-            ))}
-            <li>
-              {isAuthenticated ? (
-                <button onClick={handleLogout}> Log Out</button>
-              ) : (
-                <NavLink to="/login"> Login </NavLink>
-              )}
-            </li>
-          </ul>
-          {isAuthenticated && (
-            <div className="nav-avatar">
-              <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
-                {generateInitials()}
-              </Avatar>
-            </div>
-          )}
+          {isSearching ? searchBar : navButtons}
         </div>
         <div className="toggle-btn" onClick={() => setshowMenu(!showMenu)}>
           <i className="gg-menu-right"></i>

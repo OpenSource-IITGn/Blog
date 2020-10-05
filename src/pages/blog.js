@@ -1,13 +1,17 @@
 import { Col, Row } from 'antd'
 import React from 'react'
+import { useParams } from 'react-router'
 import PostsList from '../components/postsList'
 import SideBar from '../components/sideBar'
 import { usePostsQuery } from '../graphql/queries'
 
 function Blog() {
+  const { cat } = useParams()
+
   const { data, error, loading } = usePostsQuery({
     pageSize: 2,
     page: 0,
+    category_id: cat ? parseInt(cat) : null,
     order: 'id asc',
   })
 
@@ -15,7 +19,7 @@ function Blog() {
     return <div>loading</div>
   }
   if (error) {
-    return <div> Error : {data.error} </div>
+    return <div> Error : {error.toString()} </div>
   }
 
   const postsResponse = data.getPosts

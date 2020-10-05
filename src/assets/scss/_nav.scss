@@ -22,9 +22,14 @@
         align-items: center;
         font-size: 16px;
         z-index: 11;
+        width: 100%;
+        justify-content: flex-end;
+
 
         .nav-content-items {
             display: flex;
+            justify-content: flex-end;
+            width: 100%;
         }
 
         .gg-menu-right {
@@ -59,22 +64,40 @@
             }
         }
 
-        button {
-            border: none;
-            outline: none;
-            background-color: transparent;
-            margin: 0.5rem 1rem 0.5rem 0.5rem;
-            text-decoration: none;
-            padding: 0 1rem;
-            font-weight: 500;
-            color: $text-color;
+    }
 
-            &:hover {
-                cursor: pointer;
-                color: $text-link;
-            }
+    button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        margin: 0.5rem 1rem 0.5rem 0.5rem;
+        text-decoration: none;
+        padding: 0 1rem;
+        font-weight: 500;
+        color: $text-color;
+
+        &:hover {
+            cursor: pointer;
+            color: $text-link;
         }
     }
+
+    .search-container {
+        width: 100%;
+        display: flex;
+
+        .search-bar {
+            outline: none;
+            border: none;
+            padding: 1rem;
+            margin: 1rem 0rem 1rem 3rem;
+            border-bottom: 1px solid gray;
+            color: $dark-color;
+            font-size: 1.1rem;
+            flex-grow: 1;
+        }
+    }
+
 }
 
 @media screen and (max-width: 800px) {
@@ -101,12 +124,30 @@
                     align-items: center;
                 }
 
+
+
+                .search-container {
+                    flex-direction: column;
+                    align-items: center;
+
+                    .search-bar {
+                        margin: 2em 0;
+                        font-size: 1rem;
+                    }
+                }
+
+
+
                 ul {
                     flex-direction: column;
                     align-items: center;
                     padding-inline-start: 0;
 
                     li {
+                        height: 70px;
+                    }
+
+                    button {
                         height: 70px;
                     }
                 }
