@@ -34,6 +34,10 @@ function App() {
                 path="/signup"
                 render={(props) => <AuthForm {...props} isLogin={false} />}
               />
+              <Route exact path="/blog">
+                <Redirect to="/blog/page=1" />
+              </Route>
+
               <Route exact path="/:page" component={PageTemplate} />
               <Route exact path="/blog/page=:num" component={Blog} />
               <Route exact path="/blog/mock" component={BlogMock} />

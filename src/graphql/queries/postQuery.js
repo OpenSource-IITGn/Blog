@@ -1,8 +1,16 @@
 import gql from 'graphql-tag'
 
 export const GET_POSTS_QUERY = gql`
-  query getPosts($user_id: Int, $category_id: Int, $pageSize: Int, $page: Int, $order: String) {
+  query getPosts(
+    $user_id: Int
+    $category_id: Int
+    $pageSize: Int
+    $page: Int
+    $order: String
+    $search_query: String
+  ) {
     getPosts(
+      search_query: $search_query
       user_id: $user_id
       category_id: $category_id
       pageSize: $pageSize
@@ -11,6 +19,7 @@ export const GET_POSTS_QUERY = gql`
     ) {
       type
       msg
+      total
       posts {
         id
         title

@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd'
 import React from 'react'
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import PostsList from '../components/postsList'
 import SideBar from '../components/sideBar'
 import { PAGE_SIZE } from '../config'
@@ -8,11 +8,14 @@ import { usePostsQuery } from '../graphql/queries'
 
 function Blog() {
   const { cat, num } = useParams()
+  const { state } = useLocation()
+  const search_query = state && state.searchQuery ? state.searchQuery : null
 
   const { data, error, loading } = usePostsQuery({
     pageSize: PAGE_SIZE,
     page: num ? parseInt(num) - 1 : null,
     category_id: cat ? parseInt(cat) : null,
+    search_query: search_query,
     order: 'id asc',
   })
 

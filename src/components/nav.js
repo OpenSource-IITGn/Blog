@@ -23,20 +23,21 @@ const navLinks = [
 function Nav() {
   const [showMenu, setshowMenu] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const { user, dispatch } = useContext(UserContext)
   const history = useHistory()
   const { isAuthenticated } = user
   const logout = useLogout()
 
-  // TODO:fix this shitty ugly code
+  // TODO:fix this ugly code
   let first_name = ''
   let last_name = ''
   if (user.user) {
     first_name = user.user.first_name
     last_name = user.user.last_name
   }
-  // shitty code ends
+  // ugly code ends
 
   const handleLogout = async () => {
     await dispatch({ type: 'LOGOUT' })
@@ -57,7 +58,11 @@ function Nav() {
     setIsSearching(!isSearching)
   }
 
-  const handlePostSearch = () => {}
+  const handlePostSearch = () => {
+    history.push('/blog/page=1', {
+      searchQuery: searchQuery,
+    })
+  }
 
   const navButtons = (
     <>
@@ -92,9 +97,9 @@ function Nav() {
     <>
       <div className="search-container">
         <input
-          type="text"
           className={`search-bar`}
-          name="search-bar"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search title / Author / Tags"
         />
         <button className="search-btn" onClick={handlePostSearch}>
