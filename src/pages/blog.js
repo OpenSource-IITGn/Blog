@@ -36,6 +36,7 @@ function Blog() {
       </div>
     )
   }
+  const total = postsResponse.total
 
   const allPosts = postsResponse.posts.map((post) => {
     return { ...post, image: '1.jpg' }
@@ -48,7 +49,7 @@ function Blog() {
           <Row>
             <Col lg={17} md={24}>
               <h2 className="section-heading">Recent Posts</h2>
-              <PostsList posts={allPosts} page={num} />
+              <PostsList posts={allPosts} page={num} total={total} />
             </Col>
             <Col lg={6} offset={1} md={0}>
               <SideBar />

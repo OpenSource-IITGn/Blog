@@ -4,7 +4,7 @@ import PostItem from './postItem'
 import { useHistory } from 'react-router'
 import { PAGE_SIZE } from '../config'
 
-function PostsList({ posts, page }) {
+function PostsList({ posts, page, total }) {
   const history = useHistory()
   const [pageSize, setPageSize] = useState(PAGE_SIZE)
 
@@ -46,7 +46,7 @@ function PostsList({ posts, page }) {
         pageSize={pageSize}
         defaultCurrent={current}
         onChange={handlePageChange}
-        total={6}
+        total={total}
       />
     </section>
   )
