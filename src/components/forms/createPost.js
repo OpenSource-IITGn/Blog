@@ -91,7 +91,7 @@ function CreatePost() {
         <div className="row">
           <Row justify="center">
             <Col lg={18} md={24}>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <input
                   className="post-title-input"
                   placeholder="Write Blog title"

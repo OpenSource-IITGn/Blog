@@ -1,7 +1,7 @@
 import Post from '../../db/models/post.model'
 import {} from 'objection'
 import errorHandler from '../../db/exceptions/db'
-import { Unauthorized } from '../../db/exceptions/user'
+import { PostNotFound, Unauthorized } from '../../db/exceptions/user'
 import { getCategoryByLabel } from '../categories/resolvers'
 
 //TODO: Remove Redundant code
@@ -264,10 +264,14 @@ export const createPost = async (args, ctx) => {
 export const updatePost = async (args, ctx) => {
   // authwall
   if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
-    return { type: 'UNAUTHORIZED', msg: Unauthorized }
+    return { type: 'UNAUTHENTICATED', msg: Unauthorized }
   }
 
+  const userContext = ctx.user
+  const userId = userContext.user.id
   const { pid, title, body, categories, draft } = args
+  const post = await Post.query().findById(pid)
+
   const catIds = []
 
   try {
@@ -287,6 +291,10 @@ export const updatePost = async (args, ctx) => {
   }
 
   try {
+    if (userId.toString() !== post.author_id.toString()) {
+      return { type: 'UNAUTHORIZED', msg: Unauthorized }
+    }
+
     const trx = await Post.startTransaction()
     await Post.query(trx).where('id', pid).patch({
       title,
@@ -312,6 +320,37 @@ export const updatePost = async (args, ctx) => {
 
     await trx.commit()
 
+    return {
+      ok: true,
+    }
+  } catch (err) {
+    const { message } = errorHandler(err)
+    return {
+      ok: false,
+      msg: message,
+    }
+  }
+}
+
+export const deletePost = async (args, ctx) => {
+  // authwall
+  if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+    return { type: 'UNAUTHENTICATED', msg: Unauthorized }
+  }
+  const userContext = ctx.user
+  const userId = userContext.user.id
+  const { pid } = args
+  const post = await Post.query().findById(pid)
+
+  if (!post) {
+    return { type: 'NOT_FOUND', msg: PostNotFound }
+  }
+  try {
+    if (userId.toString() !== post.author_id.toString()) {
+      return { type: 'UNAUTHORIZED', msg: Unauthorized }
+    }
+
+    await Post.query().delete().where('id', pid)
     return {
       ok: true,
     }

@@ -7,3 +7,5 @@ export const UserNotFound = 'User was not found'
 export const UserDoesNotOwnResource = 'User does not have access to this resource'
 
 export const Unauthorized = 'Unauthorized user'
+
+export const PostNotFound = 'Post not Found'
