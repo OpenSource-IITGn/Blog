@@ -7,6 +7,7 @@ import {
   getPostById,
   getPostsByFilter,
   createPost,
+  updatePost,
 } from './resolver'
 
 const resolvers = {
@@ -17,6 +18,7 @@ const resolvers = {
   },
   Mutation: {
     createPost: getPostsResolver(async (args, ctx) => await createPost(args, ctx)),
+    updatePost: getPostsResolver(async (args, ctx) => await updatePost(args, ctx)),
   },
 }
 

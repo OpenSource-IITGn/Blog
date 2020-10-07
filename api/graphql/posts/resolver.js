@@ -211,7 +211,7 @@ export const createPost = async (args, ctx) => {
     return { type: 'UNAUTHORIZED', msg: Unauthorized }
   }
 
-  const { title, body, categories } = args
+  const { title, body, categories, draft } = args
   const userContext = ctx.user
   const userId = userContext.user.id
   const catIds = []
@@ -240,12 +240,76 @@ export const createPost = async (args, ctx) => {
           keyword: categories.tag1,
           likes: '0',
           post_categories: catIds,
+          draft: draft,
         },
       ],
       {
         relate: ['post_categories'],
       }
     )
+    await trx.commit()
+
+    return {
+      ok: true,
+    }
+  } catch (err) {
+    const { message } = errorHandler(err)
+    return {
+      ok: false,
+      msg: message,
+    }
+  }
+}
+
+export const updatePost = async (args, ctx) => {
+  // authwall
+  if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+    return { type: 'UNAUTHORIZED', msg: Unauthorized }
+  }
+
+  const { pid, title, body, categories, draft } = args
+  const catIds = []
+
+  try {
+    if (categories) {
+      await Promise.all(
+        Object.values(categories).map(async (label) => {
+          const catObject = await getCategoryByLabel(label)
+          if (!catObject.msg && catObject.category) {
+            const catId = catObject.category.id
+            catIds.push({ id: catId })
+          }
+        })
+      )
+    }
+  } catch (err) {
+    console.log('Failed to add categories or Categories missing.')
+  }
+
+  try {
+    const trx = await Post.startTransaction()
+    await Post.query(trx).where('id', pid).patch({
+      title,
+      body,
+      draft,
+    })
+
+    if (catIds.length !== 0) {
+      // unrelate all categories
+      const requiredPost = await Post.query(trx).findById(pid)
+      await requiredPost.$relatedQuery('post_categories').unrelate()
+
+      // relate new categories
+      await Promise.all(
+        Object.values(categories).map(async (label) => {
+          const catObject = await getCategoryByLabel(label)
+          if (!catObject.msg && catObject.category) {
+            await requiredPost.$relatedQuery('post_categories').relate(catObject.category)
+          }
+        })
+      )
+    }
+
     await trx.commit()
 
     return {

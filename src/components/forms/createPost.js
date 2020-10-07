@@ -21,6 +21,7 @@ function CreatePost() {
   }))
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
 
   const { body, _id, imgPreview, title, tags, file, loading } = formState
 
@@ -54,11 +55,18 @@ function CreatePost() {
     }
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!title || !body.blocks[0].text) return // body.blocks[0].text: First Paragrah in Dante
+  const handleChange = (editor) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      body: editor.emitSerializedOutput(),
+    }))
+  }
 
-    setIsSubmitting(true)
+  const handleSave = async (e) => {
+    e.preventDefault()
+
+    setIsSaving(true)
+    if (!title || !body.blocks[0].text) return // body.blocks[0].text: First Paragrah in Dante
 
     try {
       const categories = tags
@@ -73,11 +81,8 @@ function CreatePost() {
     }
   }
 
-  const handleChange = (editor) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      body: editor.emitSerializedOutput(),
-    }))
+  const handlePublish = (e) => {
+    setIsSubmitting(true)
   }
 
   return (
@@ -164,7 +169,12 @@ function CreatePost() {
                   ]}
                   onChange={(editor) => handleChange(editor)}
                 />
-                <button className="add-form-btn">Submit</button>
+                <button className="add-form-btn" onClick={handleSave}>
+                  Save
+                </button>
+                <button className="add-form-btn publish-btn" type="submit" onClick={handlePublish}>
+                  Publish
+                </button>
               </form>
             </Col>
           </Row>

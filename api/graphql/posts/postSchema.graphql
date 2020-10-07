@@ -14,6 +14,7 @@ type Query {
 type Post {
   id: Int
   title: String
+  draft: Boolean
   updated_at: String
   created_at: String
   categories: [String]!
@@ -26,6 +27,7 @@ type Post {
 type PostDetails {
   id: Int
   title: String
+  draft: Boolean
   updated_at: String
   created_at: String
   post_categories: [Category]!

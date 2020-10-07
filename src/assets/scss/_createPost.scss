@@ -50,4 +50,10 @@
   border: none;
   border-radius: 8px;
   font-size: 1.2em;
+  margin-right: 1rem;
+
+  &.publish-btn {
+    background-color: $blue;
+    color: white;
+  }
 }

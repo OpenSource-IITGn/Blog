@@ -34,7 +34,7 @@ function Login() {
         dispatch({ type: 'LOGIN', user: { first_name, last_name } })
         history.push('/home')
       } else {
-        history.push('/signIn')
+        history.push('/login')
       }
     } catch (e) {
       console.log('Network or server Error')
