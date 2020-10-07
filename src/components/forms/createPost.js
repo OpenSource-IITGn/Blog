@@ -4,21 +4,38 @@ import Dante from 'Dante2'
 import { DanteTooltipConfig } from 'Dante2/package/es/components/popovers/toolTip.js'
 import Icons from 'Dante2/package/es/components/icons'
 import { useCreatePostMutation } from '../../graphql/mutations'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation, useParams } from 'react-router'
 
-function CreatePost() {
+function CreatePost({ isEditing }) {
   const [createPostMutation, createPostMutationResults] = useCreatePostMutation()
 
-  let history = useHistory()
+  const history = useHistory()
+  const { postId } = useParams()
+  const { state } = useLocation()
 
-  const [formState, setFormState] = useState(() => ({
-    _id: null,
-    body: null,
-    title: '',
-    tags: '',
-    file: null,
-    imgPreview: null,
-  }))
+  const defaultState = isEditing
+    ? {
+        _id: postId,
+        body: state.body,
+        title: state.title,
+        tags: state.tags,
+        file: null,
+        imagePreview: null,
+      }
+    : null
+
+  const [formState, setFormState] = useState(() =>
+    defaultState
+      ? defaultState
+      : {
+          _id: null,
+          body: null,
+          title: '',
+          tags: '',
+          file: null,
+          imgPreview: null,
+        }
+  )
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
