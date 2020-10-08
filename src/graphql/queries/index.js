@@ -8,9 +8,10 @@ export const usePostsQuery = (variables) => {
   })
 }
 
-export const usePostQuery = (variables) => {
+export const usePostQuery = (variables, skip) => {
   return useQuery(GET_POST_BY_ID, {
     variables: variables,
     fetchPolicy: 'cache-and-network',
+    skip: skip,
   })
 }

@@ -1,46 +1,72 @@
-import { Col, Row } from 'antd'
-import React, { useState } from 'react'
-import Dante from 'Dante2'
-import { DanteTooltipConfig } from 'Dante2/package/es/components/popovers/toolTip.js'
-import Icons from 'Dante2/package/es/components/icons'
+import { Col, Divider, Row, Switch } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { useCreatePostMutation } from '../../graphql/mutations'
 import { useHistory, useLocation, useParams } from 'react-router'
+import { usePostQuery } from '../../graphql/queries'
+import Dante from 'Dante2'
+import { DanteTooltipConfig } from 'Dante2/package/es/components/popovers/toolTip.js'
+import Icons, { divider } from 'Dante2/package/es/components/icons'
 
 function CreatePost({ isEditing }) {
   const [createPostMutation, createPostMutationResults] = useCreatePostMutation()
-
-  const history = useHistory()
-  const { postId } = useParams()
-  const { state } = useLocation()
-
-  const defaultState = isEditing
-    ? {
-        _id: postId,
-        body: state.body,
-        title: state.title,
-        tags: state.tags,
-        file: null,
-        imagePreview: null,
-      }
-    : null
-
-  const [formState, setFormState] = useState(() =>
-    defaultState
-      ? defaultState
-      : {
-          _id: null,
-          body: null,
-          title: '',
-          tags: '',
-          file: null,
-          imgPreview: null,
-        }
-  )
-
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const history = useHistory()
+  const { postId } = useParams()
+  const { data, error, loading } = usePostQuery({ id: parseInt(postId) }, !isEditing)
+  const [bodyText, setBodyText] = useState(null)
+  const [formState, setFormState] = useState(() => ({
+    _id: null,
+    body: null,
+    title: '',
+    tags: '',
+    file: null,
+    imgPreview: null,
+    waiting: isEditing,
+  }))
 
-  const { body, _id, imgPreview, title, tags, file, loading } = formState
+  useEffect(() => {
+    if (isEditing) {
+      if (loading) {
+        return
+      }
+      if (error) {
+        return
+      }
+
+      const postResponse = data.getPostById
+
+      // implies err
+      if (postResponse.msg || postResponse.type) {
+        return
+      }
+      const postDetails = postResponse.post
+      setBodyText(JSON.parse(postDetails.body))
+      const tagList = postDetails.post_categories
+        ? postDetails.post_categories.map((c) => c.label)
+        : []
+
+      setFormState({
+        body: postDetails.body,
+        title: postDetails.title,
+        tags: tagList.join(),
+        file: null,
+        imgPreview: null,
+        waiting: false,
+      })
+    }
+  }, [error, loading, isEditing, data])
+
+  if (isEditing) {
+    if (loading) {
+      return <div>loading</div>
+    }
+    if (error) {
+      return <div> Error : console.error </div>
+    }
+  }
+
+  const { body, title, tags, waiting } = formState
 
   const handleTitleChange = (e) => {
     const title = e.target.value
@@ -58,20 +84,6 @@ function CreatePost({ isEditing }) {
     }))
   }
 
-  const handleFileChange = (files) => {
-    const file = files[0]
-    const reader = new FileReader()
-    if (file) reader.readAsDataURL(file)
-
-    reader.onloadend = () => {
-      setFormState((prevState) => ({
-        ...prevState,
-        file,
-        imgPreview: reader.result,
-      }))
-    }
-  }
-
   const handleChange = (editor) => {
     setFormState((prevState) => ({
       ...prevState,
@@ -87,19 +99,25 @@ function CreatePost({ isEditing }) {
 
     try {
       const categories = tags
-      const response = await createPostMutation(title, JSON.stringify(body), categories)
-      console.log(response)
+      const response = await createPostMutation(
+        title,
+        JSON.stringify(body),
+        categories,
+        isSubmitting
+      )
       if (!response.data.createPost || !response.data.createPost.ok) {
         return <div>response.createPost.error</div>
       }
       history.push('/blog')
+      setIsSubmitting(false)
+      setIsSubmitting(false)
     } catch (e) {
       console.log('Failed to add Question - Try again')
     }
   }
 
-  const handlePublish = (e) => {
-    setIsSubmitting(true)
+  const handlePublish = (checked) => {
+    setIsSubmitting(checked)
   }
 
   return (
@@ -108,91 +126,95 @@ function CreatePost({ isEditing }) {
         <div className="row">
           <Row justify="center">
             <Col lg={18} md={24}>
-              <form>
-                <input
-                  className="post-title-input"
-                  placeholder="Write Blog title"
-                  value={title}
-                  onChange={handleTitleChange}
-                />
-                <input
-                  className="categories-input"
-                  placeholder="Tags ( comma separated )"
-                  value={tags}
-                  onChange={handleCategoriesChange}
-                />
-                <Dante
-                  className="blog-editor"
-                  tooltips={[
-                    DanteTooltipConfig({
-                      widget_options: {
-                        placeholder: 'Вставьте ссылку...',
-                        block_types: [
-                          {
-                            label: 'h2',
-                            style: 'header-two',
-                            type: 'block',
-                            icon: Icons.h2,
-                          },
-                          {
-                            label: 'h3',
-                            style: 'header-three',
-                            type: 'block',
-                            icon: Icons.h3,
-                          },
-                          { type: 'separator' },
-                          { type: 'link' },
+              {!waiting && (
+                <form>
+                  <input
+                    className="post-title-input"
+                    placeholder="Write Blog title"
+                    value={title}
+                    onChange={handleTitleChange}
+                  />
+                  <input
+                    className="categories-input"
+                    placeholder="Tags ( comma separated )"
+                    value={tags}
+                    onChange={handleCategoriesChange}
+                  />
+                  <Dante
+                    className="blog-editor"
+                    content={bodyText}
+                    tooltips={[
+                      DanteTooltipConfig({
+                        widget_options: {
+                          block_types: [
+                            {
+                              label: 'h2',
+                              style: 'header-two',
+                              type: 'block',
+                              icon: Icons.h2,
+                            },
+                            {
+                              label: 'h3',
+                              style: 'header-three',
+                              type: 'block',
+                              icon: Icons.h3,
+                            },
+                            { type: 'separator' },
+                            { type: 'link' },
 
-                          {
-                            label: 'blockquote',
-                            style: 'blockquote',
-                            type: 'block',
-                            icon: Icons.blockquote,
-                          },
-                          { type: 'separator' },
-                          {
-                            label: 'bold',
-                            style: 'BOLD',
-                            type: 'inline',
-                            icon: Icons.bold,
-                          },
-                          {
-                            label: 'italic',
-                            style: 'ITALIC',
-                            type: 'inline',
-                            icon: Icons.italic,
-                          },
-                          {
-                            label: 'code',
-                            style: 'code-block',
-                            type: 'block',
-                            icon: Icons.code,
-                          },
-                          {
-                            label: 'insertunorderedlist',
-                            style: 'unordered-list-item',
-                            type: 'block',
-                            icon: Icons.insertunorderedlist,
-                          },
-                          {
-                            label: 'insertorderedlist',
-                            style: 'ordered-list-item',
-                            type: 'block',
-                            icon: Icons.insertunorderedlist,
-                          },
-                        ],
-                      },
-                    }),
-                  ]}
-                  onChange={(editor) => handleChange(editor)}
-                />
-                <button className="add-form-btn" onClick={handleSave}>
-                  Save
-                </button>
-                <button className="add-form-btn publish-btn" type="submit" onClick={handlePublish}>
-                  Publish
-                </button>
-              </form>
+                            {
+                              label: 'blockquote',
+                              style: 'blockquote',
+                              type: 'block',
+                              icon: Icons.blockquote,
+                            },
+                            { type: 'separator' },
+                            {
+                              label: 'bold',
+                              style: 'BOLD',
+                              type: 'inline',
+                              icon: Icons.bold,
+                            },
+                            {
+                              label: 'italic',
+                              style: 'ITALIC',
+                              type: 'inline',
+                              icon: Icons.italic,
+                            },
+                            {
+                              label: 'code',
+                              style: 'code-block',
+                              type: 'block',
+                              icon: Icons.code,
+                            },
+                            {
+                              label: 'insertunorderedlist',
+                              style: 'unordered-list-item',
+                              type: 'block',
+                              icon: Icons.insertunorderedlist,
+                            },
+                            {
+                              label: 'insertorderedlist',
+                              style: 'ordered-list-item',
+                              type: 'block',
+                              icon: Icons.insertunorderedlist,
+                            },
+                          ],
+                        },
+                      }),
+                    ]}
+                    onChange={(editor) => handleChange(editor)}
+                  />
+                  <Divider />
+                  <div className="publish-toggle-btn">
+                    <p>Publish</p>
+                    <Switch defaultChecked onChange={handlePublish} />
+                  </div>
+                  <button className="add-form-btn" onClick={handleSave}>
+                    Save
+                  </button>
+                </form>
+              )}
             </Col>
           </Row>
         </div>

@@ -4,7 +4,7 @@ import { CREATE_POST_MUTATION } from './postMutations'
 export const useCreatePostMutation = () => {
   const [mutation, mutationResults] = useMutation(CREATE_POST_MUTATION)
 
-  const createPost = async (title, body, categories) => {
+  const createPost = async (title, body, categories, draft) => {
     let tagsList = null
     if (categories) {
       const [tag1, tag2, tag3, tag4, tag5] = categories.split(',')
@@ -21,6 +21,7 @@ export const useCreatePostMutation = () => {
         title: title,
         body: body,
         categories: tagsList,
+        draft: draft,
       },
     })
   }

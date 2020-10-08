@@ -58,7 +58,7 @@ function Post() {
           <img src={require(`./../assets/images/4.jpg`)} className="post-item-image" alt="4.jpg" />
         </div>
         <div className="post-desc">
-            <Dante read_only={true} content={JSON.parse(body)} />
+          <Dante read_only={true} content={JSON.parse(body)} />
         </div>
       </div>
       <div className="post-foot"></div>
