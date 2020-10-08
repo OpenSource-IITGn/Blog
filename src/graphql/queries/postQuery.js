@@ -39,6 +39,7 @@ export const GET_POST_BY_ID = gql`
       msg
       type
       post {
+        id
         title
         post_categories {
           label

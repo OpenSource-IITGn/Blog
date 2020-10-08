@@ -1,6 +1,6 @@
 import { Col, Divider, Row, Switch } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useCreatePostMutation } from '../../graphql/mutations'
+import { useCreatePostMutation, useUpdatePostMutation } from '../../graphql/mutations'
 import { useHistory, useLocation, useParams } from 'react-router'
 import { usePostQuery } from '../../graphql/queries'
 import Dante from 'Dante2'
@@ -9,6 +9,8 @@ import Icons, { divider } from 'Dante2/package/es/components/icons'
 
 function CreatePost({ isEditing }) {
   const [createPostMutation, createPostMutationResults] = useCreatePostMutation()
+  const [updatePostMutation, updatePostMutationResults] = useUpdatePostMutation()
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const history = useHistory()
@@ -16,7 +18,7 @@ function CreatePost({ isEditing }) {
   const { data, error, loading } = usePostQuery({ id: parseInt(postId) }, !isEditing)
   const [bodyText, setBodyText] = useState(null)
   const [formState, setFormState] = useState(() => ({
-    _id: null,
+    id: null,
     body: null,
     title: '',
     tags: '',
@@ -47,6 +49,7 @@ function CreatePost({ isEditing }) {
         : []
 
       setFormState({
+        id: postDetails.id,
         body: postDetails.body,
         title: postDetails.title,
         tags: tagList.join(),
@@ -66,7 +69,7 @@ function CreatePost({ isEditing }) {
     }
   }
 
-  const { body, title, tags, waiting } = formState
+  const { id, body, title, tags, waiting } = formState
 
   const handleTitleChange = (e) => {
     const title = e.target.value
@@ -99,16 +102,32 @@ function CreatePost({ isEditing }) {
 
     try {
       const categories = tags
-      const response = await createPostMutation(
-        title,
-        JSON.stringify(body),
-        categories,
-        isSubmitting
-      )
-      if (!response.data.createPost || !response.data.createPost.ok) {
-        return <div>response.createPost.error</div>
+
+      if (!isEditing) {
+        const response = await createPostMutation(
+          title,
+          JSON.stringify(body),
+          categories,
+          isSubmitting
+        )
+        if (!response.data.createPost || !response.data.createPost.ok) {
+          return <div>response.createPost.error</div>
+        }
+        history.push('/blog')
+      } else {
+        const response = await updatePostMutation(
+          parseInt(id),
+          title,
+          JSON.stringify(body),
+          categories,
+          isSubmitting
+        )
+        if (!response.data.updatePost || !response.data.updatePost.ok) {
+          return <div>response.createPost.error</div>
+        }
+        history.push(`/blog/${id}`)
       }
-      history.push('/blog')
+
       setIsSubmitting(false)
       setIsSubmitting(false)
     } catch (e) {

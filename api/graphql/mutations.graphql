@@ -4,7 +4,7 @@ type Mutation {
   changePassword(password: String!): QueryResponse!
   createPost(title: String, body: String!, categories: Categories!, draft: Boolean): QueryResponse!
   updatePost(
-    pid: String!
+    pid: Int!
     title: String
     body: String
     categories: Categories
