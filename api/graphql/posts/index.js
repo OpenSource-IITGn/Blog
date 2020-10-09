@@ -1,15 +1,12 @@
 import fs from 'fs'
 import path from 'path'
+import { getPostById, getPostsByType, getPostsByFilter } from './resolvers/query'
+import { createPost, deletePost, updatePost } from './resolvers/mutation'
 
-import {
-  getPostsResolver,
-  getPostsByType,
-  getPostById,
-  getPostsByFilter,
-  createPost,
-  updatePost,
-  deletePost,
-} from './resolver'
+export const getPostsResolver = (callback) => async (parent, args, ctx, info) => {
+  const postsData = await callback(args, ctx)
+  return postsData
+}
 
 const resolvers = {
   Query: {
