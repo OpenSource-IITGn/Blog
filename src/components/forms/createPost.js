@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { Col, Divider, Row, Switch } from 'antd'
 import React, { useContext, useEffect, useState } from 'react'
-import { useCreatePostMutation, useUpdatePostMutation } from '../../graphql/mutations'
 import { useHistory, useParams } from 'react-router'
+import { Col, Divider, Row, Switch } from 'antd'
+
+import { useCreatePostMutation, useUpdatePostMutation } from '../../graphql/mutations'
 import { usePostQuery } from '../../graphql/queries'
-import Dante from 'Dante2'
-import { DanteTooltipConfig } from 'Dante2/package/es/components/popovers/toolTip.js'
-import Icons from 'Dante2/package/es/components/icons'
 import { UserContext } from '../../store/userContext'
+import PostEditor from './postEditor'
 
 function CreatePost() {
   const { postId } = useParams()
-  const history = useHistory()
   const { user } = useContext(UserContext)
+  const history = useHistory()
+
   const { isAuthenticated } = user
   const currentUser = user.user
-
   const isEditing = postId ? true : false
 
+  // eslint-disable-next-line no-unused-vars
   const [createPostMutation, createPostMutationResults] = useCreatePostMutation()
   const [updatePostMutation, updatePostMutationResults] = useUpdatePostMutation()
   const { data, error, loading } = usePostQuery({ id: parseInt(postId) }, !isEditing)
@@ -37,19 +37,16 @@ function CreatePost() {
 
   useEffect(() => {
     if (isEditing) {
-      if (loading) {
+      if (loading || error) {
         return
       }
-      if (error) {
-        return
-      }
-
       const postResponse = data.getPostById
 
       // implies err
       if (postResponse.msg || postResponse.type) {
         return
       }
+
       const postDetails = postResponse.post
       const { author } = postDetails
 
@@ -58,8 +55,9 @@ function CreatePost() {
         history.push(`/blog/${postDetails.id}`)
         return
       }
-
+      // manage body initialization
       setBodyText(JSON.parse(postDetails.body))
+
       const tagList = postDetails.post_categories
         ? postDetails.post_categories.map((c) => c.label)
         : []
@@ -81,12 +79,13 @@ function CreatePost() {
       return <div>loading</div>
     }
     if (error) {
-      return <div> Error : console.error </div>
+      return <div> Error: {`${error}`} </div>
     }
   }
 
   const { id, body, title, tags, waiting } = formState
 
+  // handle State changes
   const handleTitleChange = (e) => {
     const title = e.target.value
     setFormState((prevState) => ({
@@ -112,7 +111,6 @@ function CreatePost() {
 
   const handleSave = async (e) => {
     e.preventDefault()
-
     setIsSaving(true)
     if (!title || !body.blocks[0].text) return // body.blocks[0].text: First Paragrah in Dante
 
@@ -175,71 +173,8 @@ function CreatePost() {
                     value={tags}
                     onChange={handleCategoriesChange}
                   />
-                  <Dante
-                    className="blog-editor"
-                    content={bodyText}
-                    tooltips={[
-                      DanteTooltipConfig({
-                        widget_options: {
-                          block_types: [
-                            {
-                              label: 'h2',
-                              style: 'header-two',
-                              type: 'block',
-                              icon: Icons.h2,
-                            },
-                            {
-                              label: 'h3',
-                              style: 'header-three',
-                              type: 'block',
-                              icon: Icons.h3,
-                            },
-                            { type: 'separator' },
-                            { type: 'link' },
 
-                            {
-                              label: 'blockquote',
-                              style: 'blockquote',
-                              type: 'block',
-                              icon: Icons.blockquote,
-                            },
-                            { type: 'separator' },
-                            {
-                              label: 'bold',
-                              style: 'BOLD',
-                              type: 'inline',
-                              icon: Icons.bold,
-                            },
-                            {
-                              label: 'italic',
-                              style: 'ITALIC',
-                              type: 'inline',
-                              icon: Icons.italic,
-                            },
-                            {
-                              label: 'code',
-                              style: 'code-block',
-                              type: 'block',
-                              icon: Icons.code,
-                            },
-                            {
-                              label: 'insertunorderedlist',
-                              style: 'unordered-list-item',
-                              type: 'block',
-                              icon: Icons.insertunorderedlist,
-                            },
-                            {
-                              label: 'insertorderedlist',
-                              style: 'ordered-list-item',
-                              type: 'block',
-                              icon: Icons.insertunorderedlist,
-                            },
-                          ],
-                        },
-                      }),
-                    ]}
-                    onChange={(editor) => handleChange(editor)}
-                  />
+                  <PostEditor bodyText={bodyText} handleChange={handleChange} />
                   <Divider />
                   <div className="publish-toggle-btn">
                     <p>Publish</p>

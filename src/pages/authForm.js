@@ -1,5 +1,6 @@
-import { Col, Row } from 'antd'
 import React from 'react'
+import { Col, Row } from 'antd'
+
 import Login from '../components/forms/login'
 import SignUp from '../components/forms/signup'
 

@@ -1,8 +1,9 @@
+import React from 'react'
 import Dante from 'Dante2'
 import dayjs from 'dayjs'
-import React from 'react'
 import { useParams } from 'react-router'
-import { usePostQuery } from '../graphql/queries'
+
+import { usePostQuery } from '../../graphql/queries'
 
 function Post() {
   let { slug } = useParams()

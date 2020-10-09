@@ -2,9 +2,9 @@ import ApolloClient from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
+import Cookie from 'js-cookie'
 
 import { DEV_API } from './../config'
-import Cookie from 'js-cookie'
 
 const httpLink = new HttpLink({ uri: DEV_API })
 

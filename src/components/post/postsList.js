@@ -1,22 +1,17 @@
-import { Pagination } from 'antd'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import PostItem from './postItem'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
-import { PAGE_SIZE } from '../config'
+import { Pagination } from 'antd'
+
+import PostItem from './postItem'
+import { PAGE_SIZE } from '../../config'
 
 function PostsList({ posts, page, total }) {
   const history = useHistory()
+  const isFirstRun = useRef(true)
   const [pageSize, setPageSize] = useState(PAGE_SIZE)
 
   const currentPage = page ? page : 1
   const [current, setCurrent] = useState(currentPage)
-
-  const isFirstRun = useRef(true)
-
-  const handlePageChange = (val) => {
-    setCurrent(val)
-    history.push(`/blog/page=${val}`)
-  }
 
   useEffect(() => {
     if (isFirstRun.current) {
@@ -29,6 +24,12 @@ function PostsList({ posts, page, total }) {
       behavior: 'smooth',
     })
   }, [current, pageSize])
+
+  // change state functions
+  const handlePageChange = (val) => {
+    setCurrent(val)
+    history.push(`/blog/page=${val}`)
+  }
 
   return (
     <section className="posts-list">

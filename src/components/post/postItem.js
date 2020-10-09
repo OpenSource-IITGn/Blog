@@ -1,12 +1,13 @@
-import { Col, Divider, Row } from 'antd'
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { Col, Divider, Row } from 'antd'
+
 import TagsContainer from './tagsContainer'
 
 function PostItem({ post }) {
-  let postCategories = post.categories
   let history = useHistory()
 
+  let postCategories = post.categories
   if (typeof post.categories === 'string') {
     postCategories = post.categories.split(' ')
   }
@@ -17,7 +18,7 @@ function PostItem({ post }) {
 
   return (
     <div className="post-item">
-      <Row onClick={handleClick}>
+      <Row onClick={handleClick} style={{ cursor: 'pointer' }}>
         <Col span={17}>
           <div className="post-content">
             <h3 className="post-title">{post.title}</h3>

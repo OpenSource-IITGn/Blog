@@ -1,21 +1,20 @@
-import React from "react";
-import TagsContainer from "./tagsContainer";
+import React from 'react'
+import TagsContainer from '../tagsContainer'
 
 function GridPost({ post, ceil }) {
-  const windowWidth = window.innerWidth;
+  // window width
+  const windowWidth = window.innerWidth
   const bgStyle = {
     backgroundImage: `url("${require(`../assets/images/${post.image}`)}" )`,
-  };
+  }
 
-  const postStyles = windowWidth > 900 ? { ...post.style } : {};
+  const postStyles = windowWidth > 900 ? { ...post.style } : {}
 
-  const styles = ceil
-    ? { ...postStyles, justifyContent: "space-between" }
-    : { ...postStyles };
+  const styles = ceil ? { ...postStyles, justifyContent: 'space-between' } : { ...postStyles }
 
-  const containerStyle = ceil ? { justifyContent: "space-between" } : {};
+  const containerStyle = ceil ? { justifyContent: 'space-between' } : {}
 
-  const postCategories = post.categories.split(" ");
+  const postCategories = post.categories.split(' ')
 
   return (
     <div className="grid-post overlay" style={styles} href={post.link}>
@@ -28,7 +27,7 @@ function GridPost({ post, ceil }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default GridPost;
+export default GridPost
