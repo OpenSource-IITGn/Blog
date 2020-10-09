@@ -1,7 +1,8 @@
-import { Col, Row } from 'antd'
 import React from 'react'
 import { useLocation, useParams } from 'react-router'
-import PostsList from '../components/postsList'
+import { Col, Row } from 'antd'
+
+import PostsList from '../components/post/postsList'
 import SideBar from '../components/sideBar'
 import { PAGE_SIZE } from '../config'
 import { usePostsQuery } from '../graphql/queries'
@@ -27,7 +28,6 @@ function Blog() {
   }
 
   const postsResponse = data.getPosts
-
   // implies err
   if (postsResponse.msg || postsResponse.type) {
     return (
@@ -36,8 +36,8 @@ function Blog() {
       </div>
     )
   }
-  const total = postsResponse.total
 
+  const total = postsResponse.total
   const allPosts = postsResponse.posts.map((post) => {
     return { ...post, image: '1.jpg' }
   })

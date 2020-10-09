@@ -1,25 +1,12 @@
-import { Col, Divider, Row } from 'antd'
 import React from 'react'
+import { Col, Divider, Row } from 'antd'
+
 import trending from '../assets/mocks/trending'
-import Post from '../components/Post'
-import PostsGrid from '../components/PostsGrid'
+import Post from '../components/post/Post'
+import PostsGrid from '../components/grid/PostsGrid'
+import { mergeStyles, trendingGridConfig } from '../helpers/helpers'
 
-const trendingGridConfig = {
-  1: {
-    gridArea: '1 / 2 / 3 / 3',
-  },
-}
-
-const mergeStyles = (posts, config) => {
-  posts.forEach((post, index) => {
-    post.style = config[index]
-    post.author = 'Anup Aglawe'
-    post.description =
-      'Quis incididunt tempor mollit sunt incididunt non. Commodo i sunt consequat ullamco occaecat labore duis culpa occaecat pariatur consectetur qui cupidatat esse. Enim commodo sint adipisicing irure.'
-  })
-}
-
-mergeStyles(trending, trendingGridConfig)
+const trendingPosts = mergeStyles(trending, trendingGridConfig)
 
 function BlogDetail() {
   return (
@@ -37,7 +24,7 @@ function BlogDetail() {
       <section className="container">
         <div className="row">
           <h2 className="section-heading">Recommended Posts</h2>
-          <PostsGrid posts={trending} columns={3} />
+          <PostsGrid posts={trendingPosts} columns={3} />
         </div>
       </section>
     </main>

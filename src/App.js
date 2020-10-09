@@ -1,10 +1,10 @@
 import React from 'react'
 import { useAppApolloClient } from './graphql/apolloClient'
 import { ApolloProvider } from '@apollo/react-hooks'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import './App.css'
-import Nav from './components/nav'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import Nav from './components/nav/nav'
 import PageTemplate from './components/pageTemplate'
 import BlogDetail from './pages/blogDetail'
 import BlogMock from './pages/blogMock'

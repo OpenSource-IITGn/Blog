@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+
 import { useAuthToken } from './../helpers/authToken'
 import { Route, Redirect } from 'react-router-dom'
 import { UserContext } from '../store/userContext'

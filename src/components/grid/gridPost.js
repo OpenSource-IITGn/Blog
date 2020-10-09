@@ -5,7 +5,7 @@ function GridPost({ post, ceil }) {
   // window width
   const windowWidth = window.innerWidth
   const bgStyle = {
-    backgroundImage: `url("${require(`../assets/images/${post.image}`)}" )`,
+    backgroundImage: `url("${require(`../../assets/images/${post.image}`)}" )`,
   }
 
   const postStyles = windowWidth > 900 ? { ...post.style } : {}

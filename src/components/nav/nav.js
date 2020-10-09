@@ -7,7 +7,7 @@ import { useLogout } from '../../helpers/authToken'
 import { navLinks } from '../../constants'
 import { generateInitials } from '../../helpers/helpers'
 
-import './../assets/icons/css.gg.css'
+import './../../assets/icons/css.gg.css'
 import SearchBar from './searchBar'
 
 function Nav() {

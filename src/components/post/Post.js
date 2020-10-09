@@ -55,7 +55,11 @@ function Post() {
         <h1 className="post-title">{title}</h1>
         <div className="post-date">{formattedDate}</div>
         <div className="post-cover-image">
-          <img src={require(`./../assets/images/4.jpg`)} className="post-item-image" alt="4.jpg" />
+          <img
+            src={require(`./../../assets/images/4.jpg`)}
+            className="post-item-image"
+            alt="4.jpg"
+          />
         </div>
         <div className="post-desc">
           <Dante read_only={true} content={JSON.parse(body)} />
