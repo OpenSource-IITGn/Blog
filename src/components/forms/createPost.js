@@ -1,21 +1,29 @@
+/* eslint-disable no-unused-vars */
 import { Col, Divider, Row, Switch } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useCreatePostMutation, useUpdatePostMutation } from '../../graphql/mutations'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { usePostQuery } from '../../graphql/queries'
 import Dante from 'Dante2'
 import { DanteTooltipConfig } from 'Dante2/package/es/components/popovers/toolTip.js'
-import Icons, { divider } from 'Dante2/package/es/components/icons'
+import Icons from 'Dante2/package/es/components/icons'
+import { UserContext } from '../../store/userContext'
 
-function CreatePost({ isEditing }) {
+function CreatePost() {
+  const { postId } = useParams()
+  const history = useHistory()
+  const { user } = useContext(UserContext)
+  const { isAuthenticated } = user
+  const currentUser = user.user
+
+  const isEditing = postId ? true : false
+
   const [createPostMutation, createPostMutationResults] = useCreatePostMutation()
   const [updatePostMutation, updatePostMutationResults] = useUpdatePostMutation()
+  const { data, error, loading } = usePostQuery({ id: parseInt(postId) }, !isEditing)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  const history = useHistory()
-  const { postId } = useParams()
-  const { data, error, loading } = usePostQuery({ id: parseInt(postId) }, !isEditing)
   const [bodyText, setBodyText] = useState(null)
   const [formState, setFormState] = useState(() => ({
     id: null,
@@ -43,6 +51,14 @@ function CreatePost({ isEditing }) {
         return
       }
       const postDetails = postResponse.post
+      const { author } = postDetails
+
+      //  unauthorized access
+      if (!isAuthenticated || !currentUser || author.id !== currentUser.id) {
+        history.push(`/blog/${postDetails.id}`)
+        return
+      }
+
       setBodyText(JSON.parse(postDetails.body))
       const tagList = postDetails.post_categories
         ? postDetails.post_categories.map((c) => c.label)
@@ -58,7 +74,7 @@ function CreatePost({ isEditing }) {
         waiting: false,
       })
     }
-  }, [error, loading, isEditing, data])
+  }, [error, loading, isEditing, data, isAuthenticated, currentUser, history])
 
   if (isEditing) {
     if (loading) {

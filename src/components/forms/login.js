@@ -30,8 +30,8 @@ function Login() {
       const data = await loginMutation(email, password)
       const signIndata = data.data.signIn
       if (signIndata.ok) {
-        const { first_name, last_name } = signIndata.user
-        dispatch({ type: 'LOGIN', user: { first_name, last_name } })
+        const { first_name, last_name, id } = signIndata.user
+        dispatch({ type: 'LOGIN', user: { first_name, last_name, id } })
         history.push('/home')
       } else {
         history.push('/login')

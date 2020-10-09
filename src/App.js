@@ -43,11 +43,7 @@ function App() {
               <Route exact path="/blog/mock" component={BlogMock} />
               <ProtectedRoute exact path="/blog/create" component={CreatePost} />
               <Route exact path="/blog/:slug" component={BlogDetail} />
-              <Route
-                exact
-                path="/blog/:postId/edit"
-                render={(props) => <CreatePost {...props} isEditing={true} />}
-              />
+              <ProtectedRoute exact path="/blog/:postId/edit" component={CreatePost} />
               <Route exact path="/blog/category/:cat" component={Blog} />
               {/* <Route exact path="/blog/page/:num" component={404} /> */}
               <Route exact path="" render={() => <Redirect to="/home" />} />

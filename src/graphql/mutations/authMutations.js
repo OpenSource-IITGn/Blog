@@ -18,6 +18,7 @@ export const USER_SIGNIN = gql`
       msg
       token
       user {
+        id
         first_name
         last_name
       }
