@@ -6,14 +6,13 @@ import { usePostQuery } from '../graphql/queries'
 
 function Post() {
   let { slug } = useParams()
-  console.log(slug)
   const { data, error, loading } = usePostQuery({ id: parseInt(slug) })
 
   if (loading) {
     return <div>loading</div>
   }
   if (error) {
-    return <div> Error : console.error </div>
+    return <div> Error </div>
   }
 
   const postResponse = data.getPostById
