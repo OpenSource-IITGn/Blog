@@ -11,4 +11,8 @@ type Mutation {
     draft: Boolean
   ): QueryResponse!
   deletePost(pid: String!): QueryResponse!
+
+  createComment(body: String!, pid: Int!): QueryResponse!
+  updateComment(cid: Int!, body: String!): QueryResponse!
+  deleteComment(cid: Int!): QueryResponse!
 }

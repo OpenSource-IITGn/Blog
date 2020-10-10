@@ -1,0 +1,14 @@
+type Query {
+  getPostsByType(type: String): PostsResponse!
+  getPostById(id: Int): PostDetailsResponse!
+  getPosts(
+    search_query: String
+    user_id: Int
+    category_id: Int
+    pageSize: Int
+    page: Int
+    order: String
+  ): PostsResponse!
+
+  getPostComments(pid: Int!): CommentsResponse!
+}

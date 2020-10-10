@@ -7,7 +7,7 @@ import errorHandler from './../../../db/exceptions/db'
 export const createPost = async (args, ctx) => {
   // authwall
   if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
-    return { type: 'UNAUTHORIZED', msg: Unauthorized }
+    return { ok: false, msg: Unauthorized }
   }
 
   const { title, body, categories, draft } = args
@@ -30,6 +30,7 @@ export const createPost = async (args, ctx) => {
 
   try {
     const trx = await Post.startTransaction()
+    //TODO: Performance of insertGraph is questionable could be replace with normal multiple inserts
     await Post.query(trx).insertGraph(
       [
         {

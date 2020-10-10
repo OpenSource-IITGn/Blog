@@ -1,3 +1,9 @@
+type CommentsResponse {
+  ok: Boolean
+  msg: String
+  comments: [Comment]
+}
+
 type Comment {
   id: Int
   post_id: Int
