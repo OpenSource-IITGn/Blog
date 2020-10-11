@@ -60,6 +60,7 @@ export const GET_POST_BY_ID = gql`
           updated_at
           created_at
           comment_author {
+            id
             first_name
             last_name
           }

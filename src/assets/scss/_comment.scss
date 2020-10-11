@@ -1,0 +1,76 @@
+.comments-container {
+    background-color: $light-gray;
+    padding: 2rem;
+
+    h2 {
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: gray;
+        margin-bottom: 1rem;
+    }
+
+    .comments-body {
+        .comment-item {
+            display: flex;
+            margin: 1rem 0;
+            padding: 0rem 1rem;
+
+            .comment-main {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+
+                .comment-author {
+                    font-weight: 700;
+                    font-size: 0.9rem;
+                }
+
+                .comment-body {
+                    margin-top: 0.5rem;
+                    color: $dark-color;
+                    font-weight: 400;
+                    font-size: 1rem;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .comment-time {
+                // font-size: 0.7rem;
+                color: $text-color;
+            }
+        }
+
+        .add-comment {
+            padding: 0rem 1rem;
+
+            button {
+                background-color: $dark-color;
+                color: $gray;
+                outline: none;
+                border: none;
+                border-radius: 8px;
+                padding: 0.5rem 0.6rem;
+                font-size: 0.85rem;
+                margin-top: 1rem;
+                margin-left: 1rem;
+            }
+
+            .add-comment-form {
+
+                .add-comment-input {
+                    width: 100%;
+                    outline: none;
+                    border: none;
+                    padding: 0.5rem;
+                    margin: 1rem 0;
+                    border-bottom: 1px solid gray;
+                    color: $dark-color;
+
+                    &::placeholder {
+                        color: rgba(0, 0, 0, 0.44);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -31,7 +31,6 @@ function Post() {
 
   const postDetails = postResponse.post
   const { id, title, author, body, comments, likes, post_categories, created_at } = postDetails
-  console.log('post', created_at)
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
 
   return (
@@ -73,7 +72,8 @@ function Post() {
 
       <section className="comments-container">
         <h2>Comments</h2>
-        <CommentList comments={comments} />
+        <Divider />
+        <CommentList comments={comments} pid={id} />
       </section>
     </div>
   )

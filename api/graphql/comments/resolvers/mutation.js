@@ -16,13 +16,13 @@ export const createComment = async ({ pid, body }, ctx) => {
   }
 
   try {
-    await Comment.query().insert({
+    const comment = await Comment.query().insert({
       body: body,
       author_id: userId,
       post_id: pid,
     })
 
-    return { ok: true }
+    return { ok: true, msg: comment.id.toString() }
   } catch (err) {
     const { message } = errorHandler(err)
     return { ok: false, msg: message }
