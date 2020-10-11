@@ -2,6 +2,7 @@
 import Post from './../../../db/models/post.model'
 import errorHandler from './../../../db/exceptions/db'
 import { handlePostMeta } from './helpers'
+import { handleCommentMeta } from './../../comments/resolvers/helpers'
 
 export const getPostById = async (id) => {
   try {
@@ -30,8 +31,7 @@ export const getPostById = async (id) => {
     post.image = '1.jpg'
     post.created_at = post.created_at.toString()
     post.likes = post.post_likes.length
-
-    console.log(post)
+    post.comments = post.comments ? post.comments.map((c) => handleCommentMeta(c)) : null
 
     return { post }
   } catch (err) {

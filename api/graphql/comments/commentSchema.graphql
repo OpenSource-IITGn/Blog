@@ -9,4 +9,6 @@ type Comment {
   post_id: Int
   comment_author: User
   body: String
+  updated_at: String
+  created_at: String
 }

@@ -57,6 +57,8 @@ export const GET_POST_BY_ID = gql`
         comments {
           id
           body
+          updated_at
+          created_at
           comment_author {
             first_name
             last_name

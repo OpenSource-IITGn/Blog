@@ -4,6 +4,8 @@ import dayjs from 'dayjs'
 import { useParams } from 'react-router'
 
 import { usePostQuery } from '../../graphql/queries'
+import { Divider } from 'antd'
+import CommentList from './../comment/commentList'
 
 function Post() {
   let { slug } = useParams()
@@ -29,6 +31,7 @@ function Post() {
 
   const postDetails = postResponse.post
   const { id, title, author, body, comments, likes, post_categories, created_at } = postDetails
+  console.log('post', created_at)
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
 
   return (
@@ -66,6 +69,12 @@ function Post() {
         </div>
       </div>
       <div className="post-foot"></div>
+      <Divider />
+
+      <section className="comments-container">
+        <h2>Comments</h2>
+        <CommentList comments={comments} />
+      </section>
     </div>
   )
 }
