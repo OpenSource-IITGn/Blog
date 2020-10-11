@@ -4,15 +4,12 @@ class Post extends Model {
   static get tableName() {
     return 'posts'
   }
+
   static get modelPaths() {
     return [__dirname]
   }
 
   static get relationMappings() {
-    // const { User } = require('./user.model')
-    // const { Comment } = require('./comment.model')
-    // const { Category } = require('./category.model')
-
     return {
       author: {
         relation: Model.BelongsToOneRelation,
@@ -28,6 +25,7 @@ class Post extends Model {
         join: {
           from: 'posts.id',
           through: {
+            modelClass: __dirname + '/post_likes.model',
             from: 'post_likes.post_id',
             to: 'post_likes.user_id',
           },

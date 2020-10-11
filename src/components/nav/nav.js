@@ -21,7 +21,7 @@ function Nav() {
   const { isAuthenticated } = user
   const first_name = user.user ? user.user.first_name : null
   const last_name = user.user ? user.user.last_name : null
-  const userInitials = generateInitials(first_name, last_name)
+  const userInitials = user.user ? generateInitials(first_name, last_name) : null
 
   // handle State changes
   const handleLogout = async () => {

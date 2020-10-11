@@ -5,6 +5,10 @@ export class PostLike extends Model {
     return 'post_likes'
   }
 
+  static get idColumn() {
+    return ['post_id', 'user_id']
+  }
+
   static get relationMappings() {
     return {
       post: {

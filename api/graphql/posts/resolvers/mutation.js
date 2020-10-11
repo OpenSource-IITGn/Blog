@@ -2,6 +2,8 @@ import { PostNotFound, Unauthorized } from '../../../db/exceptions/user'
 import { getCategoryByLabel } from './../../categories/resolvers'
 import Post from './../../../db/models/post.model'
 import errorHandler from './../../../db/exceptions/db'
+import { PostLike } from './../../../db/models/post_likes.model'
+import { AlreadyLiked, NeverLiked } from './../../../db/exceptions/likes'
 
 // create Post Resolver
 export const createPost = async (args, ctx) => {
@@ -154,6 +156,63 @@ export const deletePost = async (args, ctx) => {
     return {
       ok: true,
     }
+  } catch (err) {
+    const { message } = errorHandler(err)
+    return {
+      ok: false,
+      msg: message,
+    }
+  }
+}
+
+export const addReaction = async ({ pid }, ctx) => {
+  //authwall
+  if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+    return { type: 'UNAUTHENTICATED', msg: Unauthorized }
+  }
+
+  const userContext = ctx.user
+  const userId = userContext.user.id
+
+  try {
+    // TODO: Redudant Query - read docs for better way
+    const postLike = await PostLike.query().where('post_id', pid).where('user_id', userId)
+    console.log(postLike)
+    if (postLike && postLike.length !== 0) {
+      return { ok: false, msg: AlreadyLiked }
+    }
+    await PostLike.query().insert({
+      post_id: pid,
+      user_id: userId,
+    })
+    return { ok: true }
+  } catch (err) {
+    const { message } = errorHandler(err)
+    return {
+      ok: false,
+      msg: message,
+    }
+  }
+}
+
+export const removeReaction = async ({ pid }, ctx) => {
+  //authwall
+  if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+    return { type: 'UNAUTHENTICATED', msg: Unauthorized }
+  }
+
+  const userContext = ctx.user
+  const userId = userContext.user.id
+
+  try {
+    // TODO: Redudant Query - read docs for better way
+    const postLike = await PostLike.query().where('post_id', pid).where('user_id', userId)
+    if (!postLike || postLike.length === 0) {
+      return { ok: false, msg: NeverLiked }
+    }
+    await PostLike.query().where('post_id', pid).where('user_id', userId).delete()
+
+    return { ok: true }
   } catch (err) {
     const { message } = errorHandler(err)
     return {

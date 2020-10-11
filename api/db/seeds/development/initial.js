@@ -68,7 +68,6 @@ exports.seed = async (knex) => {
     body:
       '{"blocks":[{"key":"dr627","text":"dfgdfg dfg dfg dfg dfg","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":19,"length":3,"style":"BOLD"}],"entityRanges":[],"data":{}}],"entityMap":{}}',
     keyword: 'blog',
-    likes: '3',
   }
   const post2 = {
     title: 'Title 2',
@@ -76,7 +75,6 @@ exports.seed = async (knex) => {
     body:
       '{"blocks":[{"key":"dr627","text":"dfgdfg dfg dfg dfg dfg","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":19,"length":3,"style":"BOLD"}],"entityRanges":[],"data":{}}],"entityMap":{}}',
     keyword: 'blog',
-    likes: '4',
   }
 
   const post3 = {
@@ -85,7 +83,6 @@ exports.seed = async (knex) => {
     body:
       '{"blocks":[{"key":"dr627","text":"dfgdfg dfg dfg dfg dfg","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":19,"length":3,"style":"BOLD"}],"entityRanges":[],"data":{}}],"entityMap":{}}',
     keyword: 'blog',
-    likes: '2',
   }
 
   const post4 = {

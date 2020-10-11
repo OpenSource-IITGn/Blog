@@ -1,7 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import { getPostById, getPostsByType, getPostsByFilter } from './resolvers/query'
-import { createPost, deletePost, updatePost } from './resolvers/mutation'
+import {
+  addReaction,
+  createPost,
+  deletePost,
+  removeReaction,
+  updatePost,
+} from './resolvers/mutation'
 
 export const getPostsResolver = (callback) => async (parent, args, ctx, info) => {
   const postsData = await callback(args, ctx)
@@ -18,6 +24,8 @@ const resolvers = {
     createPost: getPostsResolver(async (args, ctx) => await createPost(args, ctx)),
     updatePost: getPostsResolver(async (args, ctx) => await updatePost(args, ctx)),
     deletePost: getPostsResolver(async (args, ctx) => await deletePost(args, ctx)),
+    addReaction: getPostsResolver(async (args, ctx) => await addReaction(args, ctx)),
+    removeReaction: getPostsResolver(async (args, ctx) => await removeReaction(args, ctx)),
   },
 }
 

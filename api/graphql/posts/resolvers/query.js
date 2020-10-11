@@ -12,6 +12,9 @@ export const getPostById = async (id) => {
         author: {
           $modify: ['selectName'],
         },
+        post_likes: {
+          $modify: ['selectName'],
+        },
         comments: {
           comment_author: {
             $modify: ['selectName'],
@@ -26,6 +29,10 @@ export const getPostById = async (id) => {
       .throwIfNotFound()
     post.image = '1.jpg'
     post.created_at = post.created_at.toString()
+    post.likes = post.post_likes.length
+
+    console.log(post)
+
     return { post }
   } catch (err) {
     const { type, message } = errorHandler(err)
@@ -56,7 +63,7 @@ export const getPostsByFilter = async ({
       postsList = await posts
         .orderByRaw(order)
         .page(page, pageSize)
-        .withGraphFetched('[post_categories, author(selectName)]')
+        .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
         .modifiers({
           selectName(builder) {
             builder.select('first_name', 'last_name', 'id')
@@ -71,7 +78,7 @@ export const getPostsByFilter = async ({
         .where('post_categories.id', category_id)
         .orderByRaw(order)
         .page(page, pageSize)
-        .withGraphFetched('[post_categories, author(selectName)]')
+        .withGraphFetched('[post_categories, author(selectName), post_likes(selectName]')
         .modifiers({
           selectName(builder) {
             builder.select('first_name', 'last_name', 'id')
@@ -85,7 +92,7 @@ export const getPostsByFilter = async ({
         .where('author_id', user_id)
         .orderByRaw(order)
         .page(page, pageSize)
-        .withGraphFetched('[post_categories, author(selectName)]')
+        .withGraphFetched('[post_categories, author(selectName), post_likes(selectName]')
         .modifiers({
           selectName(builder) {
             builder.select('first_name', 'last_name', 'id')
@@ -101,7 +108,7 @@ export const getPostsByFilter = async ({
         .where('post_categories.id', category_id)
         .orderByRaw(order)
         .page(page, pageSize)
-        .withGraphFetched('[post_categories, author(selectName)]')
+        .withGraphFetched('[post_categories, author(selectName), post_likes(selectName]')
         .modifiers({
           selectName(builder) {
             builder.select('first_name', 'last_name', 'id')
@@ -125,7 +132,7 @@ export const getPostsByType = async (type) => {
         let posts = await Post.query()
           .orderBy('likes')
           .limit(2)
-          .withGraphFetched('[post_categories, author(selectName)]')
+          .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
             selectName(builder) {
               builder.select('first_name', 'last_name', 'id')
@@ -137,7 +144,7 @@ export const getPostsByType = async (type) => {
       case 'recent':
         let recentPosts = await Post.query()
           .orderBy('created_at')
-          .withGraphFetched('[post_categories, author(selectName)]')
+          .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
             selectName(builder) {
               builder.select('first_name', 'last_name', 'id')
@@ -149,7 +156,7 @@ export const getPostsByType = async (type) => {
       case 'recommended':
         let rePosts = await Post.query()
           .whereIn('id', [1])
-          .withGraphFetched('[post_categories, author(selectName)]')
+          .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
             selectName(builder) {
               builder.select('first_name', 'last_name', 'id')
@@ -160,7 +167,7 @@ export const getPostsByType = async (type) => {
 
       default:
         const defaultPosts = await Post.query()
-          .withGraphFetched('[post_categories, author(selectName)]')
+          .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
             selectName(builder) {
               builder.select('first_name', 'last_name', 'id')

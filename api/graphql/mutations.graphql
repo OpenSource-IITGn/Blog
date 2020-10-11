@@ -15,4 +15,7 @@ type Mutation {
   createComment(body: String!, pid: Int!): QueryResponse!
   updateComment(cid: Int!, body: String!): QueryResponse!
   deleteComment(cid: Int!): QueryResponse!
+
+  addReaction(pid: Int!): QueryResponse!
+  removeReaction(pid: Int!): QueryResponse!
 }
