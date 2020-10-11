@@ -177,7 +177,6 @@ export const addReaction = async ({ pid }, ctx) => {
   try {
     // TODO: Redudant Query - read docs for better way
     const postLike = await PostLike.query().where('post_id', pid).where('user_id', userId)
-    console.log(postLike)
     if (postLike && postLike.length !== 0) {
       return { ok: false, msg: AlreadyLiked }
     }
