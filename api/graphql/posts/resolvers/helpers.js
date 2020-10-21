@@ -2,7 +2,10 @@ export const handlePostMeta = (post) => {
   const CategoryArray = post.post_categories
   const author = post.author
   const postLikes = post.post_likes
-
+ 
+  // stringify date
+  post.created_at = post.created_at.toString()
+ 
   // set categories from object
   if (!CategoryArray) {
     post.categories = []

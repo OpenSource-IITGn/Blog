@@ -3,11 +3,15 @@ import { Link, useHistory } from 'react-router-dom'
 import { Col, Divider, Row } from 'antd'
 
 import TagsContainer from './../tagsContainer'
+import dayjs from 'dayjs'
 
 function PostItem({ post }) {
   let history = useHistory()
 
   let postCategories = post.categories
+  const { created_at, author_name } = post
+  const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
+  
   if (typeof post.categories === 'string') {
     postCategories = post.categories.split(' ')
   }
@@ -23,8 +27,8 @@ function PostItem({ post }) {
           <div className="post-content">
             <h3 className="post-title">{post.title}</h3>
             <TagsContainer postCategories={postCategories} theme="dark" />
-            <div className="post-author">By - {post.author}</div>
-            <div className="post-date">{post.date}</div>
+            <div className="post-author">By - {author_name}</div>
+            <div className="post-date">{formattedDate}</div>
             <div className="post-desc">{post.description}</div>
             <div className="more-button">Read more ...</div>
           </div>
