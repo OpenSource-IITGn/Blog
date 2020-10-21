@@ -3,8 +3,17 @@ import Post from './../../../db/models/post.model'
 import errorHandler from './../../../db/exceptions/db'
 import { handlePostMeta } from './helpers'
 import { handleCommentMeta } from './../../comments/resolvers/helpers'
+import PostLike from '../../../db/models/post_likes.model'
 
-export const getPostById = async (id) => {
+export const getPostById = async (id, ctx) => {
+  
+  let userId = null
+  if ((ctx.user && ctx.user.user && !ctx.user.jwtOriginalError)) {
+    const userContext = ctx.user
+    userId = userContext.user.id  
+  }
+
+
   try {
     const post = await Post.query()
       .findById(id)
@@ -28,6 +37,16 @@ export const getPostById = async (id) => {
         },
       })
       .throwIfNotFound()
+
+    if (userId ) {
+      const currentLike = await PostLike.query().where('post_id', id).where('user_id', userId)
+      if (currentLike && currentLike.length !== 0) {
+        post.current_like = true
+      }  else {
+        post.current_like = false
+      }
+    }
+
     post.image = '1.jpg'
     post.created_at = post.created_at.toString()
     post.likes = post.post_likes.length

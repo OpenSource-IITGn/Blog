@@ -24,6 +24,7 @@ type PostDetails {
   body: String
   image: String
   comments: [Comment]!
+  current_like: Boolean
 }
 
 type PostsResponse {

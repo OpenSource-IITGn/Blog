@@ -17,7 +17,7 @@ export const getPostsResolver = (callback) => async (parent, args, ctx, info) =>
 const resolvers = {
   Query: {
     getPostsByType: getPostsResolver(async ({ type }, ctx) => await getPostsByType(type)),
-    getPostById: getPostsResolver(async ({ id }, ctx) => await getPostById(id)),
+    getPostById: getPostsResolver(async ({ id }, ctx) => await getPostById(id, ctx)),
     getPosts: getPostsResolver(async (args, ctx) => await getPostsByFilter(args)),
   },
   Mutation: {

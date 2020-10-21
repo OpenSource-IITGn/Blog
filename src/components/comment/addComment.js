@@ -8,9 +8,6 @@ function AddComment({ editMode, pid, cid, handleCommentUpdate, handleAddComment 
   const history = useHistory()
 
   const { isAuthenticated } = user
-
-  const currentUser = user.user
-  const { first_name, last_name } = currentUser
   const initialState = ''
 
   // eslint-disable-next-line no-unused-vars
@@ -25,6 +22,9 @@ function AddComment({ editMode, pid, cid, handleCommentUpdate, handleAddComment 
     history.push('/login')
     return
   }
+  
+  const currentUser = user.user
+  const { first_name, last_name } = currentUser
 
   const handleCommentSubmit = async () => {
     try {

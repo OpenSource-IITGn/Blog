@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 import { usePostQuery } from '../../graphql/queries'
 import { Divider } from 'antd'
 import CommentList from './../comment/commentList'
+import LikeButton from './../likeButton';
 
 function Post() {
   let { slug } = useParams()
@@ -30,7 +31,7 @@ function Post() {
   }
 
   const postDetails = postResponse.post
-  const { id, title, author, body, comments, likes, post_categories, created_at } = postDetails
+  const { id, title, author, body, comments, likes, post_categories, created_at, current_like } = postDetails
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
 
   return (
@@ -67,7 +68,12 @@ function Post() {
           <Dante read_only={true} content={JSON.parse(body)} />
         </div>
       </div>
-      <div className="post-foot"></div>
+      <div className="post-foot">
+        <LikeButton pid={id} current_like={current_like}/>
+        <div className="num-likes">
+          <b>{likes}</b> likes
+        </div>
+      </div>
       <Divider />
 
       <section className="comments-container">

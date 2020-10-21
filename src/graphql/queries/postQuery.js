@@ -49,6 +49,7 @@ export const GET_POST_BY_ID = gql`
         description
         body
         likes
+        current_like
         author {
           id
           first_name

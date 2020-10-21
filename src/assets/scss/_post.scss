@@ -71,4 +71,14 @@
             }
         }
     }
+
+    .post-foot {
+        display: flex;
+        justify-content: space-between;
+
+        .num-likes {
+            font-size: 1.15rem;
+            margin-right: 0.5rem;
+        }
+    }
 }
