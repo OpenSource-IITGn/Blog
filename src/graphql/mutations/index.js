@@ -10,7 +10,7 @@ import { ADD_REACTION_MUTATION, REMOVE_REACTION_MUTATION } from './reactionMutat
 export const useCreatePostMutation = () => {
   const [mutation, mutationResults] = useMutation(CREATE_POST_MUTATION)
 
-  const createPost = async (title, body, categories, draft) => {
+  const createPost = async (title, body, categories, draft, img_url) => {
     let tagsList = null
     if (categories) {
       const [tag1, tag2, tag3, tag4, tag5] = categories.split(',')
@@ -28,6 +28,7 @@ export const useCreatePostMutation = () => {
         body: body,
         categories: tagsList,
         draft: draft,
+        img_url: img_url,
       },
     })
   }
@@ -37,7 +38,7 @@ export const useCreatePostMutation = () => {
 export const useUpdatePostMutation = () => {
   const [mutation, mutationResults] = useMutation(UPDATE_POST_MUTATION)
 
-  const updatePost = async (pid, title, body, categories, draft) => {
+  const updatePost = async (pid, title, body, categories, draft, img_url) => {
     let tagsList = null
     if (categories) {
       const [tag1, tag2, tag3, tag4, tag5] = categories.split(',')
@@ -56,6 +57,7 @@ export const useUpdatePostMutation = () => {
         body: body,
         categories: tagsList,
         draft: draft,
+        img_url: img_url,
       },
     })
   }

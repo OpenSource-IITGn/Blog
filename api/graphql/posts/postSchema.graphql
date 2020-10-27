@@ -2,19 +2,20 @@ type Post {
   id: Int
   title: String
   draft: Boolean
+  img_url: String
   updated_at: String
   created_at: String
   categories: [String]!
   likes: String
   author_name: String!
   description: String
-  image: String
 }
 
 type PostDetails {
   id: Int
   title: String
   draft: Boolean
+  img_url: String
   updated_at: String
   created_at: String
   post_categories: [Category]!
@@ -22,7 +23,6 @@ type PostDetails {
   author: User!
   description: String
   body: String
-  image: String
   comments: [Comment]!
   current_like: Boolean
 }

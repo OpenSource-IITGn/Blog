@@ -2,13 +2,20 @@ type Mutation {
   signUp(email: String!, password: String!, first_name: String!, last_name: String): QueryResponse!
   signIn(email: String!, password: String!): SignInResponse!
   changePassword(password: String!): QueryResponse!
-  createPost(title: String, body: String!, categories: Categories!, draft: Boolean): QueryResponse!
+  createPost(
+    title: String
+    body: String!
+    categories: Categories!
+    draft: Boolean
+    img_url: String
+  ): QueryResponse!
   updatePost(
     pid: Int!
     title: String
     body: String
     categories: Categories
     draft: Boolean
+    img_url: String
   ): QueryResponse!
   deletePost(pid: String!): QueryResponse!
 

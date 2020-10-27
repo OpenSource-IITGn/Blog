@@ -28,7 +28,7 @@ export const GET_POSTS_QUERY = gql`
         created_at
         likes
         categories
-        image
+        img_url
       }
     }
   }
@@ -45,7 +45,7 @@ export const GET_POST_BY_ID = gql`
           label
         }
         created_at
-        image
+        img_url
         description
         body
         likes

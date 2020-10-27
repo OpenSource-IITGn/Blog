@@ -6,7 +6,7 @@ import { useParams } from 'react-router'
 import { usePostQuery } from '../../graphql/queries'
 import { Divider } from 'antd'
 import CommentList from './../comment/commentList'
-import LikeButton from './../likeButton';
+import LikeButton from './../likeButton'
 
 function Post() {
   let { slug } = useParams()
@@ -31,7 +31,18 @@ function Post() {
   }
 
   const postDetails = postResponse.post
-  const { id, title, author, body, comments, likes, post_categories, created_at, current_like } = postDetails
+  const {
+    id,
+    title,
+    author,
+    body,
+    comments,
+    likes,
+    post_categories,
+    created_at,
+    current_like,
+    img_url,
+  } = postDetails
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
 
   return (
@@ -59,9 +70,9 @@ function Post() {
         <div className="post-date">{formattedDate}</div>
         <div className="post-cover-image">
           <img
-            src={require(`./../../assets/images/4.jpg`)}
+            src={img_url ? img_url : require(`./../../assets/images/4.jpg`)}
             className="post-item-image"
-            alt="4.jpg"
+            alt="cover pic"
           />
         </div>
         <div className="post-desc">
@@ -69,7 +80,7 @@ function Post() {
         </div>
       </div>
       <div className="post-foot">
-        <LikeButton pid={id} current_like={current_like}/>
+        <LikeButton pid={id} current_like={current_like} />
         <div className="num-likes">
           <b>{likes}</b> likes
         </div>

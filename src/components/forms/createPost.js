@@ -7,6 +7,7 @@ import { useCreatePostMutation, useUpdatePostMutation } from '../../graphql/muta
 import { usePostQuery } from '../../graphql/queries'
 import { UserContext } from '../../store/userContext'
 import PostEditor from './postEditor'
+import UploadCover from './../uploadButton'
 
 function CreatePost() {
   const { postId } = useParams()
@@ -31,7 +32,7 @@ function CreatePost() {
     title: '',
     tags: '',
     file: null,
-    imgPreview: null,
+    img_url: null,
     waiting: isEditing,
   }))
 
@@ -68,7 +69,7 @@ function CreatePost() {
         title: postDetails.title,
         tags: tagList.join(),
         file: null,
-        imgPreview: null,
+        img_url: null,
         waiting: false,
       })
     }
@@ -83,7 +84,7 @@ function CreatePost() {
     }
   }
 
-  const { id, body, title, tags, waiting } = formState
+  const { id, body, title, tags, waiting, img_url } = formState
 
   // handle State changes
   const handleTitleChange = (e) => {
@@ -109,6 +110,13 @@ function CreatePost() {
     }))
   }
 
+  const addImage = (imgUrl) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      img_url: imgUrl,
+    }))
+  }
+
   const handleSave = async (e) => {
     e.preventDefault()
     setIsSaving(true)
@@ -122,7 +130,8 @@ function CreatePost() {
           title,
           JSON.stringify(body),
           categories,
-          isSubmitting
+          isSubmitting,
+          img_url
         )
         if (!response.data.createPost || !response.data.createPost.ok) {
           return <div>response.createPost.error</div>
@@ -134,7 +143,8 @@ function CreatePost() {
           title,
           JSON.stringify(body),
           categories,
-          isSubmitting
+          isSubmitting,
+          img_url
         )
         if (!response.data.updatePost || !response.data.updatePost.ok) {
           return <div>response.createPost.error</div>
@@ -173,7 +183,7 @@ function CreatePost() {
                     value={tags}
                     onChange={handleCategoriesChange}
                   />
-
+                  <UploadCover edit={isEditing} addImageUrl={addImage} />
                   <PostEditor bodyText={bodyText} handleChange={handleChange} />
                   <Divider />
                   <div className="publish-toggle-btn">

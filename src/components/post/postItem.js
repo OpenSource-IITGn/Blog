@@ -9,9 +9,9 @@ function PostItem({ post }) {
   let history = useHistory()
 
   let postCategories = post.categories
-  const { created_at, author_name } = post
+  const { created_at, author_name, img_url } = post
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
-  
+
   if (typeof post.categories === 'string') {
     postCategories = post.categories.split(' ')
   }
@@ -37,7 +37,7 @@ function PostItem({ post }) {
           <figure>
             {/* <Link to={post.link}> */}
             <img
-              src={require(`./../../assets/images/${post.image}`)}
+              src={img_url ? img_url : require(`./../../assets/images/${post.image}`)}
               className="post-item-image"
               alt={post.image}
             />

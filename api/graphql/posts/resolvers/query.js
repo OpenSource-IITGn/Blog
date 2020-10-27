@@ -6,13 +6,11 @@ import { handleCommentMeta } from './../../comments/resolvers/helpers'
 import PostLike from '../../../db/models/post_likes.model'
 
 export const getPostById = async (id, ctx) => {
-  
   let userId = null
-  if ((ctx.user && ctx.user.user && !ctx.user.jwtOriginalError)) {
+  if (ctx.user && ctx.user.user && !ctx.user.jwtOriginalError) {
     const userContext = ctx.user
-    userId = userContext.user.id  
+    userId = userContext.user.id
   }
-
 
   try {
     const post = await Post.query()
@@ -38,16 +36,15 @@ export const getPostById = async (id, ctx) => {
       })
       .throwIfNotFound()
 
-    if (userId ) {
+    if (userId) {
       const currentLike = await PostLike.query().where('post_id', id).where('user_id', userId)
       if (currentLike && currentLike.length !== 0) {
         post.current_like = true
-      }  else {
+      } else {
         post.current_like = false
       }
     }
 
-    post.image = '1.jpg'
     post.created_at = post.created_at.toString()
     post.likes = post.post_likes.length
     post.comments = post.comments ? post.comments.map((c) => handleCommentMeta(c)) : null

@@ -12,7 +12,7 @@ export const createPost = async (args, ctx) => {
     return { ok: false, msg: Unauthorized }
   }
 
-  const { title, body, categories, draft } = args
+  const { title, body, categories, draft, img_url } = args
   const userContext = ctx.user
   const userId = userContext.user.id
   const catIds = []
@@ -43,6 +43,7 @@ export const createPost = async (args, ctx) => {
           likes: '0',
           post_categories: catIds,
           draft: draft,
+          img_url: img_url,
         },
       ],
       {
@@ -71,7 +72,7 @@ export const updatePost = async (args, ctx) => {
 
   const userContext = ctx.user
   const userId = userContext.user.id
-  const { pid, title, body, categories, draft } = args
+  const { pid, title, body, categories, draft, img_url } = args
   const post = await Post.query().findById(pid)
 
   const catIds = []
@@ -102,6 +103,7 @@ export const updatePost = async (args, ctx) => {
       title,
       body,
       draft,
+      img_url,
     })
 
     if (catIds.length !== 0) {
