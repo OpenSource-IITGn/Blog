@@ -39,7 +39,6 @@ export const createPost = async (args, ctx) => {
                     title,
                     body,
                     author_id: userId,
-                    keyword: categories.tag1,
                     likes: '0',
                     post_categories: catIds,
                     draft: draft,
