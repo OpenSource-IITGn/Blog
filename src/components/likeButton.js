@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useAddReactionMutation, useRemoveReactionMutation } from '../graphql/mutations'
-import {ReactComponent as Like} from './../assets/icons/like.svg'
-import {ReactComponent as LikeBlack} from './../assets/icons/like_black.svg'
+import { ReactComponent as Like } from './../assets/icons/like.svg'
+import { ReactComponent as LikeBlack } from './../assets/icons/like_black.svg'
 
 function LikeButton({ pid, current_like }) {
     const initialState = current_like ? true : false
     const [like, setLike] = useState(initialState)
-    const [addReaction, addMutationResults ] = useAddReactionMutation()
-    const [removeReaction, removeMutationResults ] = useRemoveReactionMutation()
+    // eslint-disable-next-line no-unused-vars
+    const [addReaction, addMutationResults] = useAddReactionMutation()
+    const [removeReaction, removeMutationResults] = useRemoveReactionMutation()
 
     const handleLike = async () => {
         await addReaction(pid)
@@ -19,8 +20,8 @@ function LikeButton({ pid, current_like }) {
     }
 
     return (
-        <div style={{ width: '30px'}}>
-            {like ? <LikeBlack onClick={handleDislike} /> : <Like onClick={handleLike}/> }
+        <div style={{ width: '30px' }}>
+            {like ? <LikeBlack onClick={handleDislike} /> : <Like onClick={handleLike} />}
         </div>
     )
 }
