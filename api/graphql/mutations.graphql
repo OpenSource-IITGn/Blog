@@ -1,28 +1,35 @@
 type Mutation {
-  signUp(email: String!, password: String!, first_name: String!, last_name: String): QueryResponse!
-  signIn(email: String!, password: String!): SignInResponse!
-  changePassword(password: String!): QueryResponse!
-  createPost(
-    title: String
-    body: String!
-    categories: Categories!
-    draft: Boolean
-    img_url: String
-  ): QueryResponse!
-  updatePost(
-    pid: Int!
-    title: String
-    body: String
-    categories: Categories
-    draft: Boolean
-    img_url: String
-  ): QueryResponse!
-  deletePost(pid: String!): QueryResponse!
+    signUp(
+        email: String!
+        password: String!
+        first_name: String!
+        last_name: String
+    ): QueryResponse!
+    signIn(email: String!, password: String!): SignInResponse!
+    changePassword(password: String!): QueryResponse!
+    createPost(
+        title: String
+        body: String!
+        categories: Categories!
+        draft: Boolean
+        img_url: String
+        description: String
+    ): QueryResponse!
+    updatePost(
+        pid: Int!
+        title: String
+        body: String
+        categories: Categories
+        draft: Boolean
+        img_url: String
+        description: String
+    ): QueryResponse!
+    deletePost(pid: String!): QueryResponse!
 
-  createComment(body: String!, pid: Int!): QueryResponse!
-  updateComment(cid: Int!, body: String!): QueryResponse!
-  deleteComment(cid: Int!): QueryResponse!
+    createComment(body: String!, pid: Int!): QueryResponse!
+    updateComment(cid: Int!, body: String!): QueryResponse!
+    deleteComment(cid: Int!): QueryResponse!
 
-  addReaction(pid: Int!): QueryResponse!
-  removeReaction(pid: Int!): QueryResponse!
+    addReaction(pid: Int!): QueryResponse!
+    removeReaction(pid: Int!): QueryResponse!
 }
