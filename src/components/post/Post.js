@@ -10,14 +10,14 @@ import CommentList from './../comment/commentList'
 import LikeButton from './../likeButton'
 import { UserContext } from '../../store/userContext'
 import { isEmpty } from '../../helpers/helpers'
+import { useHistory } from 'react-router-dom'
 
 function Post() {
     let { slug } = useParams()
     let isAuthorized = false
     const { data, error, loading } = usePostQuery({ id: parseInt(slug) })
-    console.log(data, error, loading)
     const { user } = useContext(UserContext)
-    console.log(user)
+    const history = useHistory()
 
     if (loading) {
         return <div>loading</div>
@@ -62,7 +62,11 @@ function Post() {
 
     const toolBar = (
         <div className="flex-toolbar">
-            <Button>
+            <Button
+                onClick={() => {
+                    history.push(`/blog/${id}/edit`)
+                }}
+            >
                 <EditOutlined />
             </Button>
             <Button>
