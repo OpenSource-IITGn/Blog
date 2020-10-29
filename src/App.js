@@ -13,47 +13,66 @@ import AuthForm from './pages/authForm'
 import UserContextProvider from './store/userContext'
 import ProtectedRoute from './pages/protected'
 import Blog from './pages/blog'
+import Dashboard from './components/dashboard'
 
 function App() {
-  const client = useAppApolloClient()
+    const client = useAppApolloClient()
 
-  return (
-    <ApolloProvider client={client}>
-      <UserContextProvider>
-        <div className="App">
-          <Router>
-            <Nav />
-            <Switch>
-              <Route
-                exact
-                path="/login"
-                render={(props) => <AuthForm {...props} isLogin={true} />}
-              />
-              <Route
-                exact
-                path="/signup"
-                render={(props) => <AuthForm {...props} isLogin={false} />}
-              />
-              <Route exact path="/blog">
-                <Redirect to="/blog/page=1" />
-              </Route>
+    return (
+        <ApolloProvider client={client}>
+            <UserContextProvider>
+                <div className="App">
+                    <Router>
+                        <Nav />
+                        <Switch>
+                            <Route
+                                exact
+                                path="/login"
+                                render={(props) => <AuthForm {...props} isLogin={true} />}
+                            />
+                            <Route
+                                exact
+                                path="/signup"
+                                render={(props) => <AuthForm {...props} isLogin={false} />}
+                            />
+                            <Route exact path="/blog">
+                                <Redirect to="/blog/page=1" />
+                            </Route>
 
-              <Route exact path="/:page" component={PageTemplate} />
-              <Route exact path="/blog/page=:num" component={Blog} />
-              <Route exact path="/blog/mock" component={BlogMock} />
-              <ProtectedRoute exact path="/blog/create" component={CreatePost} />
-              <Route exact path="/blog/:slug" component={BlogDetail} />
-              <ProtectedRoute exact path="/blog/:postId/edit" component={CreatePost} />
-              <Route exact path="/blog/category/:cat" component={Blog} />
-              {/* <Route exact path="/blog/page/:num" component={404} /> */}
-              <Route exact path="" render={() => <Redirect to="/home" />} />
-              <Route exact path="" render={() => 404} />
-            </Switch>
-          </Router>
-        </div>
-      </UserContextProvider>
-    </ApolloProvider>
-  )
+                            <Route exact path="/:page" component={PageTemplate} />
+                            <Route exact path="/blog/page=:num" component={Blog} />
+                            <Route exact path="/blog/mock" component={BlogMock} />
+                            <ProtectedRoute exact path="/blog/create" component={CreatePost} />
+                            <Route exact path="/blog/:slug" component={BlogDetail} />
+                            <ProtectedRoute
+                                exact
+                                path="/blog/:postId/edit"
+                                component={CreatePost}
+                            />
+                            <Route exact path="/blog/category/:cat" component={Blog} />
+                            <Route
+                                exact
+                                path="/user/:userId/posts"
+                                render={(props) => (
+                                    <Redirect
+                                        to={`/user/${props.match.params.userId}/posts/page=1`}
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/user/:userId/posts/page=:num"
+                                component={Dashboard}
+                            />
+                            {/* <Route exact path="/blog/page/:num" component={404} /> */}
+                            {/* <Route exact path="" render={() => <Redirect to="/home" />} /> */}
+                            {/* <Route exact path="" render={() => 404} /> */}
+                        </Switch>
+                    </Router>
+                </div>
+            </UserContextProvider>
+        </ApolloProvider>
+    )
 }
 
 export default App
