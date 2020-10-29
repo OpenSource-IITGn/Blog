@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Dante from 'Dante2'
 import dayjs from 'dayjs'
 import { useParams } from 'react-router'
 
 import { usePostQuery } from '../../graphql/queries'
-import { Divider } from 'antd'
+import { Button, Divider } from 'antd'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import CommentList from './../comment/commentList'
 import LikeButton from './../likeButton'
+import { UserContext } from '../../store/userContext'
+import { isEmpty } from '../../helpers/helpers'
 
 function Post() {
     let { slug } = useParams()
+    let isAuthorized = false
     const { data, error, loading } = usePostQuery({ id: parseInt(slug) })
+    console.log(data, error, loading)
+    const { user } = useContext(UserContext)
+    console.log(user)
 
     if (loading) {
         return <div>loading</div>
@@ -45,6 +52,25 @@ function Post() {
     } = postDetails
     const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
 
+    if (user && !isEmpty(user)) {
+        const { isAuthenticated } = user
+        const currentUser = user.user
+        if (isAuthenticated && currentUser && author.id === currentUser.id) {
+            isAuthorized = true
+        }
+    }
+
+    const toolBar = (
+        <div className="flex-toolbar">
+            <Button>
+                <EditOutlined />
+            </Button>
+            <Button>
+                <DeleteOutlined />
+            </Button>
+        </div>
+    )
+
     return (
         <div className="post-details">
             <div className="post-head">
@@ -66,6 +92,7 @@ function Post() {
                 </div>
             </div>
             <div className="post-body">
+                {isAuthorized && toolBar}
                 <h1 className="post-title">{title}</h1>
                 <div className="post-date">{formattedDate}</div>
                 <div className="post-cover-image">
