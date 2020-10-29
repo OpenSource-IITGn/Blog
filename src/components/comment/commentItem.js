@@ -3,11 +3,14 @@ import dayjs from 'dayjs'
 import { Button, Divider } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import AddComment from './addComment'
+import { useDeleteCommentMutation } from './../../graphql/mutations/index'
 
-function CommentItem({ comment, handleCommentUpdate }) {
+function CommentItem({ comment, handleCommentUpdate, deleteComment }) {
     const [editComment, setEditComment] = useState(false)
     const { id, created_at, updated_at, body, comment_author } = comment
     const { first_name, last_name } = comment_author
+    const [deleteCommentMutation, mutationResults] = useDeleteCommentMutation()
+
     const [commentState, setCommentState] = useState({
         id,
         created_at,
@@ -25,6 +28,15 @@ function CommentItem({ comment, handleCommentUpdate }) {
         setEditComment(true)
     }
 
+    const handleDeleteComment = async () => {
+        const response = await deleteCommentMutation(id)
+        if (!response.data.deleteComment || !response.data.deleteComment.ok) {
+            console.log('Unsuccessful !!')
+        } else {
+            deleteComment(id)
+        }
+    }
+
     const resetComment = (comment) => {
         setEditComment(false)
         setCommentState(comment)
@@ -35,7 +47,7 @@ function CommentItem({ comment, handleCommentUpdate }) {
             <Button onClick={handleEditComment}>
                 <EditOutlined />
             </Button>
-            <Button onClick={() => {}}>
+            <Button onClick={handleDeleteComment}>
                 <DeleteOutlined />
             </Button>
         </div>

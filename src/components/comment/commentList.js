@@ -13,8 +13,18 @@ function CommentList({ comments, pid }) {
         setCommentsList(updateCommentList)
     }
 
+    const deleteComment = (id) => {
+        const updateCommentList = commentsList.filter((c) => c.id !== id)
+        setCommentsList(updateCommentList)
+    }
+
     const allComments = commentsList.map((c) => (
-        <CommentItem key={c.id} comment={c} handleCommentUpdate={handleCommentUpdate} />
+        <CommentItem
+            key={c.id}
+            comment={c}
+            handleCommentUpdate={handleCommentUpdate}
+            deleteComment={deleteComment}
+        />
     ))
 
     return (
