@@ -45,3 +45,12 @@ export const UPDATE_POST_MUTATION = gql`
         }
     }
 `
+
+export const DELETE_POST_MUTATION = gql`
+    mutation deletePost($pid: Int!) {
+        deletePost(pid: $pid) {
+            ok
+            msg
+        }
+    }
+`

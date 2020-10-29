@@ -139,7 +139,6 @@ function CreatePost() {
                     img_url,
                     description
                 )
-                console.log(response)
                 if (!response.data.createPost || !response.data.createPost.ok) {
                     return <div>response.createPost.error</div>
                 }

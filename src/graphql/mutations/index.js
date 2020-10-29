@@ -4,7 +4,7 @@ import {
     UPDATE_COMMENT_MUTATION,
     DELETE_COMMENT_MUTATION,
 } from './commentMutations'
-import { CREATE_POST_MUTATION, UPDATE_POST_MUTATION } from './postMutations'
+import { CREATE_POST_MUTATION, DELETE_POST_MUTATION, UPDATE_POST_MUTATION } from './postMutations'
 import { ADD_REACTION_MUTATION, REMOVE_REACTION_MUTATION } from './reactionMutation'
 
 export const useCreatePostMutation = () => {
@@ -64,6 +64,19 @@ export const useUpdatePostMutation = () => {
         })
     }
     return [updatePost, mutationResults]
+}
+
+export const useDeletePostMutation = () => {
+    const [mutation, mutationResults] = useMutation(DELETE_POST_MUTATION)
+
+    const deletePost = async (pid) => {
+        return mutation({
+            variables: {
+                pid: pid,
+            },
+        })
+    }
+    return [deletePost, mutationResults]
 }
 
 export const useCreateCommentMutation = () => {

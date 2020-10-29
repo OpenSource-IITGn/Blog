@@ -24,7 +24,7 @@ type Mutation {
         img_url: String
         description: String
     ): QueryResponse!
-    deletePost(pid: String!): QueryResponse!
+    deletePost(pid: Int!): QueryResponse!
 
     createComment(body: String!, pid: Int!): QueryResponse!
     updateComment(cid: Int!, body: String!): QueryResponse!

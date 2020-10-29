@@ -11,11 +11,15 @@ import LikeButton from './../likeButton'
 import { UserContext } from '../../store/userContext'
 import { isEmpty } from '../../helpers/helpers'
 import { useHistory } from 'react-router-dom'
+import { useDeletePostMutation } from './../../graphql/mutations/index'
 
 function Post() {
     let { slug } = useParams()
     let isAuthorized = false
     const { data, error, loading } = usePostQuery({ id: parseInt(slug) })
+    // eslint-disable-next-line no-unused-vars
+    const [deletePostMutation, mutationResults] = useDeletePostMutation()
+
     const { user } = useContext(UserContext)
     const history = useHistory()
 
@@ -60,6 +64,15 @@ function Post() {
         }
     }
 
+    const handleDeletePost = async () => {
+        const response = await deletePostMutation(id)
+        if (!response.data.deletePost || !response.data.deletePost.ok) {
+            console.log('Unsuccessful !!')
+        } else {
+            history.push('/blog')
+        }
+    }
+
     const toolBar = (
         <div className="flex-toolbar">
             <Button
@@ -69,7 +82,7 @@ function Post() {
             >
                 <EditOutlined />
             </Button>
-            <Button>
+            <Button onClick={handleDeletePost}>
                 <DeleteOutlined />
             </Button>
         </div>
