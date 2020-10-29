@@ -3,19 +3,19 @@ import { useHistory } from 'react-router'
 import { useCreateCommentMutation, useUpdateCommentMutation } from '../../graphql/mutations'
 import { UserContext } from '../../store/userContext'
 
-function AddComment({ editMode, pid, cid, handleCommentUpdate, handleAddComment }) {
+function AddComment({ editMode, initialComment, pid, cid, handleAddComment, resetComment }) {
     const { user } = useContext(UserContext)
     const history = useHistory()
 
     const { isAuthenticated } = user
-    const initialState = ''
+    const initialState = editMode ? initialComment : ''
 
     // eslint-disable-next-line no-unused-vars
     const [createCommentMutation, createCommentMutationResults] = useCreateCommentMutation()
     // eslint-disable-next-line no-unused-vars
     const [updateCommentMutation, updateCommentMutationResults] = useUpdateCommentMutation()
 
-    const [isEditing, setIsEditing] = useState(false)
+    const [isEditing, setIsEditing] = useState(editMode ? true : false)
     const [commentBody, setCommentBody] = useState(initialState)
 
     const first_name = user.user ? user.user.first_name : null
@@ -46,14 +46,15 @@ function AddComment({ editMode, pid, cid, handleCommentUpdate, handleAddComment 
                 setIsEditing(false)
             } else {
                 const response = await updateCommentMutation(parseInt(cid), commentBody)
-                if (!response.data.updateCommentt || !response.data.updateComment.ok) {
+                if (!response.data.updateComment || !response.data.updateComment.ok) {
                     return <div>response.updateComment.error</div>
                 }
-                const comment = {}
-                handleCommentUpdate(comment)
+                const time = 'Just now'
+                const comment = { cid, created_at: time, first_name, last_name, body: commentBody }
+                resetComment(comment)
             }
         } catch (e) {
-            console.log('Failed to add Question - Try again')
+            console.log('Failed to add Comment - Try again')
         }
     }
 
@@ -71,7 +72,7 @@ function AddComment({ editMode, pid, cid, handleCommentUpdate, handleAddComment 
                         value={commentBody}
                     />
                     <div className="comment-btn-grp">
-                        <button onClick={handleCommentSubmit}>Add</button>
+                        <button onClick={handleCommentSubmit}>{editMode ? 'Update' : 'Add'}</button>
                         <button onClick={() => setIsEditing(false)}>Cancel</button>
                     </div>
                 </div>
