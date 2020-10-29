@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import dayjs from 'dayjs'
 import { Button, Divider } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import AddComment from './addComment'
 import { useDeleteCommentMutation } from './../../graphql/mutations/index'
+import { UserContext } from '../../store/userContext'
+import { isEmpty } from '../../helpers/helpers'
 
 function CommentItem({ comment, handleCommentUpdate, deleteComment }) {
     const [editComment, setEditComment] = useState(false)
     const { id, created_at, updated_at, body, comment_author } = comment
     const { first_name, last_name } = comment_author
     const [deleteCommentMutation, mutationResults] = useDeleteCommentMutation()
+    let isAuthorized = false
+    const { user } = useContext(UserContext)
+
+    if (user && !isEmpty(user)) {
+        const { isAuthenticated } = user
+        const currentUser = user.user
+        if (isAuthenticated && currentUser && comment_author.id === currentUser.id) {
+            isAuthorized = true
+        }
+    }
 
     const [commentState, setCommentState] = useState({
         id,
@@ -63,7 +75,7 @@ function CommentItem({ comment, handleCommentUpdate, deleteComment }) {
                     <div className="comment-body">{commentState.body}</div>
                 </div>
                 <div className="comment-time">{formattedDate}</div>
-                {toolBar}
+                {isAuthorized && toolBar}
             </div>
             <Divider />
         </>
