@@ -65,8 +65,8 @@ function App() {
                                 component={Dashboard}
                             />
                             {/* <Route exact path="/blog/page/:num" component={404} /> */}
-                            {/* <Route exact path="" render={() => <Redirect to="/home" />} /> */}
-                            {/* <Route exact path="" render={() => 404} /> */}
+                            <Route exact path="" render={() => <Redirect to="/home" />} />
+                            <Route exact path="" render={() => 404} />
                         </Switch>
                     </Router>
                 </div>
