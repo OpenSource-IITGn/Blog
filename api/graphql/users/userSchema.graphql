@@ -4,6 +4,8 @@ type User {
   email: String!
   first_name: String!
   last_name: String
+  bio: String
+  avatar_url: String
 }
 
 type SignInResponse {
@@ -16,4 +18,10 @@ type SignInResponse {
 type QueryResponse {
   ok: Boolean
   msg: String
+}
+
+type ProfileResponse {
+  ok: Boolean
+  msg: String
+  user: User
 }

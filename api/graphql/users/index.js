@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { signIn, signUp, updateProfile } from './resolver'
+import { getUserProfile, signIn, signUp, updateProfile } from './resolver'
 
 export const baseResolver = (callback) => async (parent, args, ctx, info) => {
   const res = await callback(args, ctx)
@@ -8,7 +8,9 @@ export const baseResolver = (callback) => async (parent, args, ctx, info) => {
 }
 
 const resolvers = {
-  Query: {},
+  Query: {
+    getUserProfile: baseResolver(async (args, ctx) => await getUserProfile(args, ctx)),
+  },
   Mutation: {
     signIn: baseResolver(({ email, password }) => signIn(email, password)),
     signUp: baseResolver(({ email, first_name, last_name, password }) =>

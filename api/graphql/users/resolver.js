@@ -9,6 +9,37 @@ const comparePassword = (password, hash) => {
   return argon2.verify(hash, password)
 }
 
+export const getUserProfile = async (args, ctx) => {
+  try {
+    const { userId } = args
+    if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+      return { type: 'UNAUTHENTICATED', msg: Unauthorized }
+    }
+
+    const userContext = ctx.user
+    const id = userContext.user.id
+
+    if (id !== userId) {
+      throw Error('User Unauthorized')
+    }
+    const userDetails = await User.query()
+      .findById(userId)
+      .select('id', 'first_name', 'last_name', 'bio', 'email', 'image_url')
+      .throwIfNotFound()
+
+    return {
+      ok: true,
+      user: userDetails,
+    }
+  } catch (err) {
+    let { type, message } = errorHandler(err)
+    return {
+      ok: false,
+      msg: message,
+    }
+  }
+}
+
 export const signIn = async (email, password) => {
   try {
     const users = await User.query().where('email', email).throwIfNotFound()

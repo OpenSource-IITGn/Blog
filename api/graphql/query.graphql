@@ -11,4 +11,6 @@ type Query {
   ): PostsResponse!
 
   getPostComments(pid: Int!): CommentsResponse!
+
+  getUserProfile(userId: Int!): ProfileResponse!
 }
