@@ -37,7 +37,7 @@ const uploadProps = {
   },
 }
 
-const UploadCover = ({ edit, addImageUrl, uploadPreset }) => {
+const UploadCover = ({ edit, addImageUrl, uploadPreset, isAvatar }) => {
   const [imageUrl, setImageUrl] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -88,7 +88,11 @@ const UploadCover = ({ edit, addImageUrl, uploadPreset }) => {
         className="avatar-uploader"
         action={handleUpload}
       >
-        {imageUrl ? <img src={imageUrl} alt="cover" style={{ width: '100%' }} /> : uploadButton}
+        {imageUrl ? (
+          <img src={imageUrl} alt="cover" style={{ width: isAvatar ? '150px' : '100%' }} />
+        ) : (
+          uploadButton
+        )}
       </Upload>
     </div>
   )

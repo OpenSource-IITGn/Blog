@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { EditOutlined, CheckOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Col, Divider, Row, Upload } from 'antd'
+import { Avatar, Button, Col, Divider, Row, Upload } from 'antd'
 import UploadCover from '../uploadButton'
 import { useUpdateProfileMutation } from './../../graphql/mutations/index'
 import { useHistory } from 'react-router'
@@ -16,6 +16,8 @@ function ProfileForm({ profile }) {
     bio: profile.bio,
     avatarUrl: profile.image_url ? profile.image_url : '',
   })
+
+  const isEditing = profile.image_url ? true : false
 
   const handleChange = (evt) => {
     const value = evt.target.value
@@ -88,8 +90,15 @@ function ProfileForm({ profile }) {
                   />
                 </div>
                 <div className="user-avatar">
-                  <UploadCover edit={false} addImageUrl={addImage} uploadPreset="avatar_iitgn" />
+                  {isEditing && <img src={profile.image_url} width="150px" />}
+                  <UploadCover
+                    edit={isEditing}
+                    addImageUrl={addImage}
+                    uploadPreset="avatar_iitgn"
+                    isAvatar={true}
+                  />
                 </div>
+                <Divider />
                 <button className="add-form-btn" onClick={handleSubmit}>
                   Submit
                 </button>
