@@ -54,7 +54,7 @@ export const GET_POST_BY_ID = gql`
           first_name
           last_name
           bio
-          avatar_url
+          image_url
         }
         comments {
           id

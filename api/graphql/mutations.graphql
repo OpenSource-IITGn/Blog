@@ -6,7 +6,7 @@ type Mutation {
     first_name: String
     last_name: String
     bio: String
-    avatar_url: String
+    image_url: String
     email: String!
   ): QueryResponse!
 

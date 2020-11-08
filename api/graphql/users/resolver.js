@@ -104,7 +104,7 @@ export const signUp = async (email, first_name, last_name, password) => {
 }
 
 export const updateProfile = async (args, ctx) => {
-  const { email, first_name, last_name, bio, avatar_url } = args
+  const { email, first_name, last_name, bio, image_url } = args
 
   try {
     if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
@@ -123,7 +123,7 @@ export const updateProfile = async (args, ctx) => {
       first_name: first_name,
       last_name: last_name,
       bio: bio,
-      avatar_url: avatar_url,
+      image_url: image_url,
     })
 
     return {

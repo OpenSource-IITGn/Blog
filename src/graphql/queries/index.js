@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/react-hooks'
 import { GET_POSTS_QUERY, GET_POST_BY_ID } from './postQuery'
+import { GET_USER_PROFILE } from './userQuery'
 
 export const usePostsQuery = (variables) => {
   return useQuery(GET_POSTS_QUERY, {
@@ -13,5 +14,12 @@ export const usePostQuery = (variables, skip) => {
     variables: variables,
     fetchPolicy: 'cache-and-network',
     skip: skip,
+  })
+}
+
+export const useProfileQuery = (variables) => {
+  return useQuery(GET_USER_PROFILE, {
+    variables: variables,
+    fetchPolicy: 'cache-and-network',
   })
 }
