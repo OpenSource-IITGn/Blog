@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 import { EditOutlined, CheckOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Col, Divider, Row, Upload } from 'antd'
 import UploadCover from '../uploadButton'
+import { useUpdateProfileMutation } from './../../graphql/mutations/index'
+import { useHistory } from 'react-router'
 
 function ProfileForm({ profile }) {
   const [update, setUpdate] = useState(false)
+  const history = useHistory()
+  const [updateProfileMutation, updateProfileMutationResults] = useUpdateProfileMutation()
+
   const [formState, setFormState] = useState({
     firstName: profile.first_name,
     lastName: profile.last_name,
@@ -22,6 +27,7 @@ function ProfileForm({ profile }) {
   }
 
   const { firstName, lastName, bio, avatarUrl } = formState
+  const email = profile.email
 
   const addImage = (imgUrl) => {
     setFormState((prevState) => ({
@@ -30,6 +36,16 @@ function ProfileForm({ profile }) {
     }))
   }
 
+  const handleSubmit = async () => {
+    try {
+      const response = await updateProfileMutation(firstName, lastName, bio, avatarUrl, email)
+      console.log(response)
+      if (!response.data.updateProfile || !response.data.updateProfile.ok) {
+        return <div>response.createPost.error</div>
+      }
+      history.push('/blog')
+    } catch (err) {}
+  }
   return (
     <main className="home">
       <section className="container">
@@ -72,9 +88,11 @@ function ProfileForm({ profile }) {
                   />
                 </div>
                 <div className="user-avatar">
-                  {/* <UploadCover edit={false} addImageUrl={addImage} uploadPreset="avatar_iitgn" /> */}
+                  <UploadCover edit={false} addImageUrl={addImage} uploadPreset="avatar_iitgn" />
                 </div>
-                <button className="add-form-btn">Submit</button>
+                <button className="add-form-btn" onClick={handleSubmit}>
+                  Submit
+                </button>
               </div>
             </Col>
           </Row>

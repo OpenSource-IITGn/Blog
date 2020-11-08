@@ -130,7 +130,6 @@ function CreatePost() {
       const categories = tags
 
       if (!isEditing) {
-        console.log('description', description)
         const response = await createPostMutation(
           title,
           JSON.stringify(body),
