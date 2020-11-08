@@ -1,6 +1,6 @@
 import errorHandler from '../../db/exceptions/db'
 import User from './../../db/models/user.model'
-import { EmailAlreadyRegistered, InvalidCredentials } from '../../db/exceptions/user'
+import { EmailAlreadyRegistered, InvalidCredentials, Unauthorized } from '../../db/exceptions/user'
 import jsonwebtoken from 'jsonwebtoken'
 import { JWT } from './../../config'
 import argon2 from 'argon2'
@@ -65,6 +65,41 @@ export const signUp = async (email, first_name, last_name, password) => {
     if (type === 'UniqueViolation') {
       message = EmailAlreadyRegistered
     }
+    return {
+      ok: false,
+      msg: message,
+    }
+  }
+}
+
+export const updateProfile = async (args, ctx) => {
+  const { email, first_name, last_name, bio, avatar_url } = args
+
+  try {
+    if ((ctx.user && !ctx.user.user) || (ctx.user && ctx.user.jwtOriginalError)) {
+      return { type: 'UNAUTHENTICATED', msg: Unauthorized }
+    }
+
+    const userContext = ctx.user
+    const userId = userContext.user.id
+    const user = await User.query().where('email', email).throwIfNotFound()
+
+    if (user.id === userId) {
+      throw Error('UnAuthorized User')
+    }
+
+    await User.query().findById(userId).update({
+      first_name: first_name,
+      last_name: last_name,
+      bio: bio,
+      avatar_url: avatar_url,
+    })
+
+    return {
+      ok: true,
+    }
+  } catch (err) {
+    let { type, message } = errorHandler(err)
     return {
       ok: false,
       msg: message,
