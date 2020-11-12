@@ -46,14 +46,15 @@ function Blog() {
     <main className="home">
       <section className="container">
         <div className="row">
-          <Row>
+          <h2 className="section-heading">Recent Posts</h2>
+
+          <Row justify="center">
             <Col lg={17} md={24}>
-              <h2 className="section-heading">Recent Posts</h2>
               <PostsList posts={allPosts} page={num} total={total} />
             </Col>
-            <Col lg={6} offset={1} md={0}>
+            {/* <Col lg={6} offset={1} md={0}>
               <SideBar />
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </section>

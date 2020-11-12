@@ -34,7 +34,7 @@ function PostsList({ posts, page, total, route }) {
 
   return (
     <section className="posts-list">
-      <div className="flex-container">
+      <div className="flex-container" style={{ justifyContent: 'center' }}>
         <div className="posts-container">
           {posts.map((post, index) => (
             <PostItem post={post} key={index} />
