@@ -133,6 +133,8 @@ exports.seed = async (knex) => {
   const post1 = {
     title: 'Creating Cattle: The courage of our ancestors',
     author_id: 2,
+    img_url:
+      'https://www.muralswallpaper.com/app/uploads/Abstract-Rainbow-Wallpaper-Mural-Swatch.jpg',
     description:
       'Long ago, when we didn’t have agriculture, we searched for food in forests. That would mean gathering roots, fruits, some seeds, or hunting animals. But food is not always so easy to get; fruits, for example, are seasonal. While killing wild goats gave us meat to eat and skin to use, keeping some of them alive was even more useful.',
     body: blog1.blog,
@@ -140,6 +142,7 @@ exports.seed = async (knex) => {
   const post2 = {
     title: 'Quantum Computing : Imagining the unimaginable.',
     author_id: 3,
+    img_url: 'https://slidesgo.com/storage/90299/conversions/0-abstract-cv-thumb.jpg',
     description:
       'Imagine if I were to tell you that in a future not so distant from us, the world’s fastest supercomputer, the Japanese Fugaku would be reduced to a piece of junk as a new set of machines rise from the laboratories of Google and IBM, you would probably laugh in my face.',
     body: blog2.blog,
@@ -148,6 +151,8 @@ exports.seed = async (knex) => {
   const post3 = {
     title: 'The future of the human brain — A review',
     author_id: 4,
+    img_url: 'https://petapixel.com/assets/uploads/2020/04/abstract_1-800x534.jpg',
+
     description:
       'The human brain is a fascinating organ and there is no area unlike the field of Computer Science which is more inspired by it. The entire field of Artificial Intelligence having been built around the concept that one day we will be able to teach machines to be able to teach themselves to think and make decisions like humans.',
     body: blog1.blog,
@@ -156,6 +161,8 @@ exports.seed = async (knex) => {
   const post4 = {
     title: 'The impact of Human Augmentation on society',
     author_id: 5,
+    img_url: 'https://i.pinimg.com/originals/ec/f3/61/ecf361a14d789dabd901ecb970ff2fc0.jpg',
+
     description:
       'The human race, ever since it has come into existence, has been a part of an evolutionary process steadily through natural means. Groundbreaking inventions of humans over the last two centuries have made it possible to increase efficiency and comfort in doing numerous tasks.',
     body: blog2.blog,
@@ -164,6 +171,9 @@ exports.seed = async (knex) => {
   const post5 = {
     title: 'Genetic Fortune Telling?',
     author_id: 6,
+    img_url:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS-kXG93u-zthcYbjIOQJcRuPqWfSMBS-HmkQ&usqp=CAU',
+
     description:
       'Is it that day yet? The day you question all your choices, wishing you had done things differently? Is it that day when you wonder how things would’ve been different if you only had a hint as to where your skills lie? ',
     body: blog1.blog,
@@ -172,6 +182,9 @@ exports.seed = async (knex) => {
   const post6 = {
     title: 'Exploring the blockchain technology beyond Cryptocurrencies',
     author_id: 7,
+    img_url:
+      'https://png.pngtree.com/thumb_back/fw800/background/20190828/pngtree-dark-vector-abstract-background-image_302715.jpg',
+
     description:
       'Blockchain has been on every tongue ever since the Bitcoin boom a year back. The buzz has been on the rise since then. People buy, sell or “hodl” (a common blockchain slang for holding) these coins or so-called cryptocurrencies.',
     body: blog2.blog,
@@ -180,6 +193,8 @@ exports.seed = async (knex) => {
   const post7 = {
     title: 'The Science of Laziness: Fault in our Genes',
     author_id: 8,
+    img_url: 'https://www.7pace.com/wp-content/uploads/2020/08/cover-abstract-thinking.png',
+
     description:
       'Mumma says, “ Get up and do something”, and here we get a long list of errands to run for. Gathering all the courage left after hearing these ruthless words, we put all efforts to come out of the comfort of that cozy bed.',
     body: blog10.blog,
@@ -188,6 +203,9 @@ exports.seed = async (knex) => {
   const post8 = {
     title: 'Fiction To Reality',
     author_id: 9,
+    img_url:
+      'https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+
     description:
       'Remember the glass elevator in the movie Charlie and the chocolate factory. The elevator that Mr. Willy Wonka used to move throughout his factory. ',
     body: blog11.blog,
@@ -196,6 +214,9 @@ exports.seed = async (knex) => {
   const post9 = {
     title: '🎈SVGWave🌊 - A miniproject - courtesy of hacktoberfest',
     author_id: 1,
+    img_url:
+      'https://img.freepik.com/free-photo/abstract-background-colorful-spin-circle_73152-3318.jpg?size=626&ext=jpg',
+
     description:
       '✨As I mark the completion of hacktoberfest, I would say that the one thing which helped me cross the barrier to enter the world of open source, is hacktoberfest.',
     body: blog10.blog,
@@ -204,6 +225,9 @@ exports.seed = async (knex) => {
   const post10 = {
     title: 'Beautify your Windows Terminal 🦄 ',
     author_id: 1,
+    img_url:
+      'https://www.marshallsindia.com/images/bs-collection/volume2/abstract/abstract-slider-1.jpg',
+
     description:
       'Remember the glass elevator in the movie Charlie and the chocolate factory. The elevator that Mr. Willy Wonka used to move throughout his factory. ',
     body: blog10.blog,
@@ -212,6 +236,9 @@ exports.seed = async (knex) => {
   const post11 = {
     title: 'Balancing the Imbalanced Data',
     author_id: 1,
+    img_url:
+      'https://images.ctfassets.net/hrltx12pl8hq/37lqQySBsACiSCc4i4oCue/4149c19142eee853780c0d650566227f/shutterstock_574261726_thumb.jpg?fit=fill&w=368&h=207',
+
     description:
       'Imbalanced data has been a thorn in Machine Learning researchers’ side for a very long time and academicians have worked hard to solve these problems. Real-world datasets always have some degree of imbalance.',
     body: blog11.blog,
