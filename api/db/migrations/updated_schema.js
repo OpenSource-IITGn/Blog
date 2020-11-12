@@ -60,7 +60,7 @@ exports.up = async (knex) => {
 
       table.string('title', 300).notNullable()
       table.text('body').notNullable()
-      table.string('description', 200).notNullable()
+      table.string('description', 4000).notNullable()
       table.string('img_url', 2000)
       table.string('cover_url', 2000)
       table.string('cover_type')

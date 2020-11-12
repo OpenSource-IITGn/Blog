@@ -24,7 +24,6 @@ function Profile() {
     if (response && response.ok && response.user) {
       userProfile = response.user
     } else {
-      console.log(response)
     }
   } catch {
     if (!user || !user.user) {

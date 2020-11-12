@@ -123,7 +123,8 @@ function CreatePost() {
   const handleSave = async (e) => {
     e.preventDefault()
     setIsSaving(true)
-    if (!title || !body.blocks[0].text) return // body.blocks[0].text: First Paragrah in Dante
+
+    if (!title) return // body.blocks[0].text: First Paragrah in Dante
     const description = desc.slice(0, 195)
 
     try {

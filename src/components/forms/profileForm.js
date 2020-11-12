@@ -41,7 +41,6 @@ function ProfileForm({ profile }) {
   const handleSubmit = async () => {
     try {
       const response = await updateProfileMutation(firstName, lastName, bio, avatarUrl, email)
-      console.log(response)
       if (!response.data.updateProfile || !response.data.updateProfile.ok) {
         return <div>response.createPost.error</div>
       }

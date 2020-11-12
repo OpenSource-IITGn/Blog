@@ -55,7 +55,6 @@ function Post() {
     img_url,
   } = postDetails
   const formattedDate = dayjs(created_at).format('MMMM DD, YYYY')
-  console.log(author)
   if (user && !isEmpty(user)) {
     const { isAuthenticated } = user
     const currentUser = user.user
