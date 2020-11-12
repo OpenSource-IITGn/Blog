@@ -2,11 +2,21 @@ import dayjs from 'dayjs'
 import React from 'react'
 import TagsContainer from '../tagsContainer'
 
-function GridPost({ post, ceil }) {
+function GridPost({ type, index, post, ceil }) {
   // window width
   const windowWidth = window.innerWidth
   const bgStyle = {
     backgroundImage: `url("${post.img_url}" )`,
+  }
+
+  let titleStyle = {}
+  if (type === 'trending' && index === 0) {
+    titleStyle = {
+      'font-weight': '700',
+      'letter-spacing': '0.4mm',
+      'font-size': '1.5rem',
+      'line-height': '3rem',
+    }
   }
 
   const postStyles = windowWidth > 900 ? { ...post.style } : {}
@@ -26,7 +36,9 @@ function GridPost({ post, ceil }) {
       <div className="grid-post-container" style={containerStyle}>
         {/* <TagsContainer postCategories={postCategories} /> */}
         <div className="image-text">
-          <h3 className="image-title">{post.title}</h3>
+          <h3 className="image-title" style={titleStyle}>
+            {post.title}
+          </h3>
           <span className="image-date">{formattedDate}</span>
         </div>
       </div>

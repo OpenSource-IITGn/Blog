@@ -43,7 +43,7 @@ function Home() {
       <section className="container">
         <div className="row">
           <h2 className="section-heading">Recommended Posts</h2>
-          {/* <PostsGrid posts={trendingPosts} columns={3} /> */}
+          <PostsGrid type="recommended" columns={3} />
         </div>
       </section>
     </main>

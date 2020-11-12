@@ -7,7 +7,7 @@ import GridPost from './gridPost'
 
 function PostsGrid({ type, columns, ceil }) {
   const { data, error, loading } = usePostByTypeQuery({
-    type: 'trending',
+    type: type,
   })
 
   if (loading) {
@@ -28,7 +28,13 @@ function PostsGrid({ type, columns, ceil }) {
   }
 
   const posts = postsResponse.posts
-  const trendingPosts = mergeStyles(posts, featuredGridConfig)
+  let allPosts = []
+
+  if (type === 'trending') {
+    allPosts = mergeStyles(posts, featuredGridConfig)
+  } else {
+    allPosts = mergeStyles(posts, trendingGridConfig)
+  }
 
   return (
     <>
@@ -38,10 +44,10 @@ function PostsGrid({ type, columns, ceil }) {
           gridTemplateColumns: `repeat(${columns}, minmax(300px, 1fr))`,
         }}
       >
-        {trendingPosts.slice(0, posts.length - 1).map((post, index) => (
-          <GridPost {...{ post, index, ceil, key: index }} />
+        {allPosts.slice(0, posts.length - 1).map((post, index) => (
+          <GridPost {...{ type, post, index, ceil, key: index }} />
         ))}
-        {type === 'trending' && <GridPost post={trendingPosts[posts.length - 1]} />}
+        {type === 'trending' && <GridPost post={allPosts[posts.length - 1]} />}
       </section>
     </>
   )

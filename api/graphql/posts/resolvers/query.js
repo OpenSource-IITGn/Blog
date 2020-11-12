@@ -174,7 +174,7 @@ export const getPostsByType = async (type) => {
 
       case 'recommended':
         let rePosts = await Post.query()
-          .whereIn('id', [1])
+          .whereIn('id', [5, 6, 7, 8, 9, 10])
           .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
             selectName(builder) {
