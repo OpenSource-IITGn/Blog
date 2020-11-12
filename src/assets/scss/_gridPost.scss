@@ -44,6 +44,7 @@
         flex-direction: column;
         box-sizing: border-box;
         padding: 20px;
+        background-color: rgba($color: #000000, $alpha: .3);
         // position: absolute;
 
         .image-title,
@@ -52,7 +53,7 @@
             width: 100%;
             z-index: 10;
             color: white;
-            font-weight: 300;
+            font-weight: 500;
         }
 
         .image-date {
@@ -60,6 +61,27 @@
             font-size: 18px;
 
         }
+
+    }
+
+    &:first-child {
+
+        .image-text {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+
+            .image-title {
+                font-weight: 700;
+                letter-spacing: 0.4mm;
+                font-size: 1.5rem;
+                line-height: 3rem;
+            }
+
+            .image-date {
+                color: $light-gray;
+            }
+        }
+
     }
 }
 

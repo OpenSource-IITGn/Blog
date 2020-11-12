@@ -150,7 +150,7 @@ export const getPostsByType = async (type) => {
       case 'trending':
         let posts = await Post.query()
           .orderBy('likes')
-          .limit(2)
+          .limit(5)
           .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
             selectName(builder) {

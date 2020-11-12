@@ -71,3 +71,21 @@ export const GET_POST_BY_ID = gql`
     }
   }
 `
+export const GET_POST_BY_TYPE = gql`
+  query getPostsByType($type: String) {
+    getPostsByType(type: $type) {
+      type
+      msg
+      total
+      posts {
+        id
+        title
+        author_name
+        created_at
+        likes
+        categories
+        img_url
+      }
+    }
+  }
+`
