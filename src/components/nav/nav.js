@@ -42,6 +42,9 @@ function Nav() {
           </li>
         ))}
         <li>{!isAuthenticated && <NavLink to="/login"> Login </NavLink>}</li>
+        <li className="register-btn">
+          {!isAuthenticated && <NavLink to="/signup"> Register </NavLink>}
+        </li>
       </ul>
       {isAuthenticated && avatarBtn}
     </>

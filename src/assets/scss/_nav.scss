@@ -63,6 +63,23 @@
             }
         }
 
+        .register-btn {
+            background-color: $dark-blue;
+            padding: 8px 2px;
+            box-shadow: $shadow;
+            border-radius: 8px;
+
+            a {
+                color: white;
+
+                &:hover {
+                    cursor: pointer;
+                    color: white;
+                }
+            }
+
+        }
+
     }
 
     button {
