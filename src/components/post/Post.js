@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import { useParams } from 'react-router'
 
 import { usePostQuery } from '../../graphql/queries'
-import { Button, Divider } from 'antd'
+import { Button, Divider, Avatar } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import CommentList from './../comment/commentList'
 import LikeButton from './../likeButton'
@@ -12,6 +12,8 @@ import { UserContext } from '../../store/userContext'
 import { isEmpty } from '../../helpers/helpers'
 import { useHistory } from 'react-router-dom'
 import { useDeletePostMutation } from './../../graphql/mutations/index'
+
+import userAvatar from './../../assets/icons/001-user.svg'
 
 function Post() {
   let { slug } = useParams()
@@ -91,17 +93,22 @@ function Post() {
     <div className="post-details">
       <div className="post-head">
         <div className="author-avatar">
-          <img
-            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/00/00d168bf49d5f1774c633a7dcc3a1f4a51395bc2_full.jpg"
-            alt="dummy"
-          />
+          {author.image_url ? (
+            <Avatar src={author.image_url} />
+          ) : (
+            <img src={userAvatar} alt="user-avatar" width="60%" />
+          )}
         </div>
         <div className="author-desc">
           <div className="author-name">
             {author.first_name} {author.last_name}
           </div>
           <br />
-          <div className="author-bio">{author.bio}</div>
+          <div className="author-bio">
+            {author.bio
+              ? author.bio
+              : `${author.first_name} ${author.last_name} is a passionate writer and student at IIT Gandhinagar.`}
+          </div>
         </div>
       </div>
       <div className="post-body">

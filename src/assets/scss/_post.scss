@@ -7,12 +7,17 @@
         display: flex;
         margin-bottom: 2rem;
         align-items: center;
-        padding: 2rem;
-        background-color: #fafafa;
+        padding: 2rem 1rem;
+        background-color: rgba($color: #fff, $alpha: 0.5);
+        box-shadow: $shadow;
+        // border-radius: 8px;
 
         .author-avatar {
+            display: flex;
+            justify-content: center;
+
             img {
-                max-width: 60%;
+                max-width: 40%;
                 border-radius: 50%;
             }
         }
