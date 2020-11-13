@@ -9,6 +9,7 @@
     z-index: 100;
     background-color: #fff;
     top: 0;
+    box-shadow: $shadow;
 
     .nav-brand {
         font-size: 24px;
@@ -50,8 +51,9 @@
 
         li {
 
+            margin: 0 0.5em;
+
             a {
-                margin: 0.5rem;
                 text-decoration: none;
                 padding: 0 1rem;
                 font-weight: 500;

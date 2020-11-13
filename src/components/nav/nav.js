@@ -41,7 +41,16 @@ function Nav() {
             <NavLink to={path}>{title}</NavLink>
           </li>
         ))}
-        {!isAuthenticated && (
+        {isAuthenticated ? (
+          <li className="register-btn">
+            <NavLink
+              to="/blog/create"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
+            >
+              <i class="gg-bolt" style={{ marginRight: '8px' }}></i>Write
+            </NavLink>
+          </li>
+        ) : (
           <>
             <li>
               <NavLink to="/login"> Login </NavLink>
