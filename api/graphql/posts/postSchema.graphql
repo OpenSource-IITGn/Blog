@@ -1,40 +1,40 @@
 type Post {
-    id: Int
-    title: String
-    draft: Boolean
-    img_url: String
-    description: String
-    updated_at: String
-    created_at: String
-    categories: [String]!
-    likes: String
-    author_name: String!
+  id: Int
+  title: String
+  draft: Boolean
+  img_url: String
+  description: String
+  updated_at: String
+  created_at: String
+  categories: [String]!
+  likes: Int
+  author_name: String!
 }
 
 type PostDetails {
-    id: Int
-    title: String
-    draft: Boolean
-    img_url: String
-    updated_at: String
-    created_at: String
-    post_categories: [Category]!
-    likes: String
-    author: User!
-    body: String
-    comments: [Comment]!
-    current_like: Boolean
+  id: Int
+  title: String
+  draft: Boolean
+  img_url: String
+  updated_at: String
+  created_at: String
+  post_categories: [Category]!
+  likes: Int
+  author: User!
+  body: String
+  comments: [Comment]!
+  current_like: Boolean
 }
 
 type PostsResponse {
-    type: String
-    msg: String
-    total: Int
-    posts: [Post]!
+  type: String
+  msg: String
+  total: Int
+  posts: [Post]!
 }
 
 type PostDetailsResponse {
-    type: String
-    msg: String
-    post: PostDetails
+  type: String
+  msg: String
+  post: PostDetails
 }

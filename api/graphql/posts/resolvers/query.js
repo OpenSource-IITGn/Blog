@@ -145,11 +145,12 @@ export const getPostsByFilter = async ({
 // get Home Screen Posts
 export const getPostsByType = async (type) => {
   let postsData = []
+
   try {
     switch (type) {
       case 'trending':
         let posts = await Post.query()
-          .orderBy('likes')
+          .orderBy('likes', 'desc')
           .limit(5)
           .withGraphFetched('[post_categories, author(selectName), post_likes(selectName)]')
           .modifiers({
@@ -157,6 +158,10 @@ export const getPostsByType = async (type) => {
               builder.select('first_name', 'last_name', 'id')
             },
           })
+        // console.log(posts)
+        // console.log(posts.toKnexQuery().toSQL().toNative())
+
+        // postCount = await posts.clone().count()
         postsData = posts.map((post) => handlePostMeta(post))
         break
 
@@ -195,8 +200,11 @@ export const getPostsByType = async (type) => {
         postsData = defaultPosts.map((post) => handlePostMeta(post))
         break
     }
+
+    // console.log(postsData, postCount)
     return { posts: postsData }
   } catch (err) {
+    console.log(err)
     const { type, message } = errorHandler(err)
     return { type, msg: message }
   }
